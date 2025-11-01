@@ -13,6 +13,7 @@ import { Profile } from '@/lib/database.types';
 import { Edit, LogOut, Mail, Phone, MapPin, Calendar, Droplets, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
 import ProtectedRoute from '@/components/protected-route';
+import FamilyWallet from '@/components/family-wallet';
 
 export default function ProfilePage() {
   const { user, signOut } = useAuth();
@@ -271,6 +272,11 @@ export default function ProfilePage() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Family Wallet Section */}
+        <div className="mt-8">
+          <FamilyWallet />
         </div>
       </div>
     </ProtectedRoute>
