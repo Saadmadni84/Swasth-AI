@@ -6,6 +6,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const analyzeRoute = require('./routes/analyze');
+const smartwatchRoute = require('./routes/smartwatch');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,7 +17,7 @@ const PORT = process.env.PORT || 5000;
 
 // Enable CORS for frontend communication
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3001',
+  origin: [process.env.FRONTEND_URL || 'http://localhost:3001', 'http://localhost:3000'],
   credentials: true
 }));
 
@@ -37,13 +38,17 @@ app.get('/', (req, res) => {
     message: 'Medical Report OCR API is running',
     version: '1.0.0',
     endpoints: {
-      analyze: 'POST /api/analyze - Upload and analyze medical report PDF'
+      analyze: 'POST /api/analyze - Upload and analyze medical report PDF',
+      smartwatch: 'GET /api/smartwatch/* - Smartwatch mental health endpoints'
     }
   });
 });
 
 // Medical report analysis endpoint
 app.use('/api', analyzeRoute);
+
+// Smartwatch mental health endpoints
+app.use('/api/smartwatch', smartwatchRoute);
 
 // ============================================
 // Error Handling Middleware

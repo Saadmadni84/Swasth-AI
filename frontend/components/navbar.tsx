@@ -48,6 +48,12 @@ const Navbar = () => {
       isActive: pathname === '/health-check'
     },
     {
+      href: '/mental-health',
+      label: 'Mental Health',
+      icon: '🧠',
+      isActive: pathname === '/mental-health'
+    },
+    {
       href: '/3d-lab',
       label: '3D Lab',
       icon: '🧬',

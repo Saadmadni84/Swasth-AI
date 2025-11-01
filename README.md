@@ -103,6 +103,27 @@ A comprehensive, secure, and user-friendly health management platform built with
 - Provides key takeaways and insights to drive informed healthcare decisions
 - Responsive design that works across all device sizes
 
+### 🧠 Mental Health Smartwatch Dashboard
+- **Real-time Data Monitoring**: Simulated smartwatch data updated every 10 seconds
+- **Key Health Metrics**: Track heart rate (60-140 bpm), stress levels (1-10), sleep hours (3-9h), and daily steps (1000-10000)
+- **Mental Health Score**: AI-calculated wellness score (0-10) based on:
+  - Stress levels > 7 → -2 points
+  - Sleep < 6 hours → -2 points
+  - Heart rate > 120 bpm → -3 points
+  - Bonus points for optimal metrics
+- **Status Categories**:
+  - 🟢 Healthy (Score ≥ 8)
+  - 🟡 Moderate (Score 5-7)
+  - 🔴 Stressed (Score < 5)
+- **Personalized Recommendations**: AI-driven health advice including:
+  - Stress management techniques
+  - Sleep optimization tips
+  - Heart rate regulation guidance
+  - Activity level recommendations
+- **Interactive Visualizations**: Live trend charts with mental health score and stress level tracking
+- **Elegant UI**: SwasthAI color palette (#003049, #669bbc, #780000, #c1121f, #fdf0d5) with Framer Motion animations
+- **Glowing Effects**: Hover effects on cards, smooth transitions, and animated health indicators
+
 ## 🚀 Future Updates
 
 ### 📊 AI-powered Demand Forecasting of Medicines
