@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid body. Expect { type, payload }' }, { status: 400 })
     }
 
-    const baseUrl = process.env.ML_API_URL || 'http://127.0.0.1:5000'
+    const baseUrl = process.env.ML_API_URL || 'http://127.0.0.1:5001'
 
     // Map type -> Flask endpoint
     const endpointMap: Record<string, string> = {

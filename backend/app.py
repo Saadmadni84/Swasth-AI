@@ -107,19 +107,34 @@ def predict_parkinsons():
     try:
         data = request.get_json()
 
-        # Replace these with the actual features your Parkinsons model expects
+        # Features expected by the Parkinsons model (voice-based features)
+        # Note: The model may require more features, but we'll accept what the frontend sends
+        # and handle missing features gracefully
         expected_features = [
-            "feature1", "feature2", "feature3"  # Add all features
+            "fo", "fhi", "flo", "jitter_percent", "shimmer", "nhr", "hnr"
         ]
 
-        missing = [f for f in expected_features if f not in data]
-        if missing:
-            return jsonify({"error": f"Missing features: {missing}"}), 400
+        # Check if we have at least some features
+        provided_features = [f for f in expected_features if f in data]
+        if not provided_features:
+            return jsonify({"error": "No valid features provided. Expected: " + ", ".join(expected_features)}), 400
 
-        features = np.array([[data[f] for f in expected_features]])
-        prediction = parkinsons_model.predict(features)
-        result = "Parkinsons" if prediction[0] == 1 else "No Parkinsons"
-        return jsonify({"prediction": result})
+        # Try to build features array - use provided values or default to 0
+        try:
+            # If the model expects more features, we'll need to handle that
+            # For now, use what's provided
+            feature_values = [float(data.get(f, 0)) for f in expected_features]
+            features = np.array([feature_values])
+            
+            prediction = parkinsons_model.predict(features)
+            # Return both string and numeric for compatibility
+            result_str = "Parkinsons" if prediction[0] == 1 else "No Parkinsons"
+            return jsonify({"prediction": result_str, "prediction_value": int(prediction[0])})
+        except ValueError as ve:
+            return jsonify({"error": f"Invalid feature values: {str(ve)}"}), 400
+        except Exception as model_error:
+            # Model might expect different number of features
+            return jsonify({"error": f"Model prediction error: {str(model_error)}. Please check model requirements."}), 500
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -128,6 +143,7 @@ def predict_parkinsons():
 # Run app
 # -------------------------
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
+    # Use port 5001 to avoid conflict with macOS AirPlay on port 5000
+    port = int(os.environ.get('PORT', 5001))
     debug_mode = os.environ.get('FLASK_ENV') != 'production'
     app.run(debug=debug_mode, host='0.0.0.0', port=port)

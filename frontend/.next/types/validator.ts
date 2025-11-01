@@ -380,6 +380,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/api/predict/parkinsons/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/predict/parkinsons">> = Specific
+  const handler = {} as typeof import("../../app/api/predict/parkinsons/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/api/simple-profile/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/simple-profile">> = Specific

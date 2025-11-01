@@ -31,9 +31,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Try to connect to the ML backend
+    // Using port 5001 to avoid conflict with macOS AirPlay on port 5000
+    const mlBackendUrl = process.env.ML_API_URL || 'http://127.0.0.1:5001';
     const mlBackendUrls = [
-      'http://127.0.0.1:5003/predict/diabetes',
-      'http://localhost:5003/predict/diabetes'
+      `${mlBackendUrl}/predict/diabetes`,
+      'http://127.0.0.1:5001/predict/diabetes',
+      'http://localhost:5001/predict/diabetes'
     ];
 
     let lastError = '';
@@ -81,10 +84,10 @@ export async function POST(request: NextRequest) {
         error: 'Diabetes ML backend service unavailable', 
         details: lastError,
         troubleshooting: [
-          'Make sure the ML backend is running on port 5002',
-          'Run: cd backend && PORT=5002 python3 app.py',
-          'Check that the diabetes model file exists: models/ml/diabetes_model.pkl',
-          'Verify that all required Python packages are installed'
+          'Make sure the ML backend is running on port 5001',
+          'Run: cd backend && python app.py',
+          'Check that the diabetes model file exists: backend/models/ml/diabetes_model.pkl',
+          'Verify that all required Python packages are installed: pip install -r requirements.txt'
         ]
       },
       { status: 503 }

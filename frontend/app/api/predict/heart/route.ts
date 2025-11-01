@@ -21,9 +21,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Try to connect to the ML backend
+    // Using port 5001 to avoid conflict with macOS AirPlay on port 5000
+    const mlBackendUrl = process.env.ML_API_URL || 'http://127.0.0.1:5001';
     const mlBackendUrls = [
-      'http://127.0.0.1:5000/predict/heart',
-      'http://localhost:5000/predict/heart'
+      `${mlBackendUrl}/predict/heart`,
+      'http://127.0.0.1:5001/predict/heart',
+      'http://localhost:5001/predict/heart'
     ];
 
     let lastError = '';
@@ -70,9 +73,10 @@ export async function POST(request: NextRequest) {
         error: 'ML backend service unavailable', 
         details: lastError,
         troubleshooting: [
-          'Make sure the ML backend is running on port 5000',
-          'Run: cd ml-backend && python3 app.py',
-          'Check that all required Python packages are installed'
+          'Make sure the ML backend is running on port 5001',
+          'Run: cd backend && python app.py',
+          'Check that the heart model file exists: backend/models/ml/heart_disease_model.pkl',
+          'Verify that all required Python packages are installed: pip install -r requirements.txt'
         ]
       },
       { status: 503 }
