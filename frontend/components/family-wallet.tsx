@@ -155,16 +155,16 @@ export default function FamilyWallet() {
   return (
     <div className="space-y-6">
       {/* Header Section */}
-      <Card>
+      <Card className="bg-white border-2 border-gray-200">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-50 rounded-lg">
-                <Users className="h-6 w-6 text-[#003049]" />
+              <div className="p-2 bg-gray-100 rounded-lg">
+                <Users className="h-6 w-6 text-gray-900" />
               </div>
               <div>
-                <CardTitle className="text-2xl">👨‍👩‍👧‍👦 Family Wallet</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-2xl text-gray-900">👨‍👩‍👧‍👦 Family Wallet</CardTitle>
+                <CardDescription className="text-gray-700">
                   Manage your family members and health subscriptions easily
                 </CardDescription>
               </div>
@@ -175,10 +175,10 @@ export default function FamilyWallet() {
           {/* Progress Bar */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
-              <span className="font-medium text-gray-700">
+              <span className="font-medium text-gray-900">
                 Family Members Added: {familyMembers.length}/{maxMembers}
               </span>
-              <span className="text-gray-500">{Math.round(progress)}%</span>
+              <span className="text-gray-700">{Math.round(progress)}%</span>
             </div>
             <Progress value={progress} className="h-2" />
           </div>
@@ -194,7 +194,7 @@ export default function FamilyWallet() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 }}
           >
-            <Card className="relative overflow-hidden hover:shadow-lg transition-shadow duration-300 border-2 border-gray-100">
+            <Card className="relative overflow-hidden hover:shadow-lg transition-shadow duration-300 border-2 border-gray-200 bg-white">
               <CardContent className="p-6">
                 {/* Profile Section */}
                 <div className="flex items-center gap-4 mb-4">
@@ -202,17 +202,17 @@ export default function FamilyWallet() {
                     <img
                       src={member.avatar}
                       alt={member.name}
-                      className="w-16 h-16 rounded-full ring-2 ring-[#669bbc]"
+                      className="w-16 h-16 rounded-full ring-2 ring-gray-300"
                     />
                     {member.relationship === "Self" && (
-                      <div className="absolute -top-1 -right-1 bg-[#003049] rounded-full p-1">
+                      <div className="absolute -top-1 -right-1 bg-gray-900 rounded-full p-1">
                         <Crown className="h-3 w-3 text-yellow-400" />
                       </div>
                     )}
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg text-gray-900">{member.name}</h3>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-600">
                       {member.relationship} • {member.age} years
                     </p>
                   </div>
@@ -243,7 +243,7 @@ export default function FamilyWallet() {
                     variant="outline"
                     size="sm"
                     onClick={() => handleEditMember(member)}
-                    className="flex-1 hover:bg-blue-50 hover:text-[#003049] hover:border-[#003049]"
+                    className="flex-1 hover:bg-gray-100 hover:text-white hover:border-gray-400 text-white border-gray-300 bg-gray-800"
                   >
                     <Edit2 className="h-3 w-3 mr-1" />
                     Edit
@@ -253,7 +253,7 @@ export default function FamilyWallet() {
                       variant="outline"
                       size="sm"
                       onClick={() => handleRemoveMember(member.id)}
-                      className="flex-1 hover:bg-red-50 hover:text-red-600 hover:border-red-600"
+                      className="flex-1 hover:bg-red-600 hover:text-white hover:border-red-600 text-white border-gray-800 bg-gray-800"
                     >
                       <Trash2 className="h-3 w-3 mr-1" />
                       Remove
@@ -273,15 +273,15 @@ export default function FamilyWallet() {
             transition={{ duration: 0.3, delay: familyMembers.length * 0.1 }}
           >
             <Card
-              className="h-full border-2 border-dashed border-gray-300 hover:border-[#669bbc] hover:bg-blue-50 transition-all duration-300 cursor-pointer"
+              className="h-full border-2 border-dashed border-gray-300 hover:border-gray-500 hover:bg-gray-50 transition-all duration-300 cursor-pointer bg-white"
               onClick={handleAddMember}
             >
               <CardContent className="flex flex-col items-center justify-center h-full min-h-[200px] p-6">
-                <div className="p-4 bg-blue-100 rounded-full mb-4">
-                  <Plus className="h-8 w-8 text-[#003049]" />
+                <div className="p-4 bg-gray-200 rounded-full mb-4">
+                  <Plus className="h-8 w-8 text-gray-900" />
                 </div>
                 <h3 className="font-semibold text-lg text-gray-900 mb-2">Add Family Member</h3>
-                <p className="text-sm text-gray-500 text-center">
+                <p className="text-sm text-gray-700 text-center">
                   Click to add a new family member
                 </p>
               </CardContent>
@@ -291,16 +291,16 @@ export default function FamilyWallet() {
       </div>
 
       {/* Family Health Plan Section */}
-      <Card className="border-2 border-[#669bbc] bg-gradient-to-br from-blue-50 to-cyan-50">
+      <Card className="border-2 border-gray-200 bg-white">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-white rounded-lg shadow-sm">
-                <Shield className="h-6 w-6 text-[#003049]" />
+              <div className="p-2 bg-gray-100 rounded-lg shadow-sm">
+                <Shield className="h-6 w-6 text-gray-900" />
               </div>
               <div>
-                <CardTitle className="text-xl">{familyHealthPlan.name}</CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardTitle className="text-xl text-gray-900">{familyHealthPlan.name}</CardTitle>
+                <CardDescription className="text-gray-700">
                   Comprehensive coverage for your entire family
                 </CardDescription>
               </div>
@@ -323,22 +323,22 @@ export default function FamilyWallet() {
                   <div className="p-1 bg-green-100 rounded-full">
                     <Check className="h-3 w-3 text-green-600" />
                   </div>
-                  <span className="text-sm text-gray-700">{feature}</span>
+                  <span className="text-sm text-gray-800">{feature}</span>
                 </div>
               ))}
             </div>
 
             {/* Subscription Details */}
             <div className="space-y-4">
-              <div className="bg-white rounded-lg p-4 shadow-sm">
+              <div className="bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-600">Plan Price</span>
-                  <span className="text-2xl font-bold text-[#003049]">
+                  <span className="text-sm text-gray-700">Plan Price</span>
+                  <span className="text-2xl font-bold text-gray-900">
                     {familyHealthPlan.price}
                   </span>
                 </div>
                 {familyHealthPlan.isActive && (
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2 text-sm text-gray-700">
                     <Calendar className="h-4 w-4" />
                     <span>Renews on {familyHealthPlan.renewalDate}</span>
                   </div>
@@ -348,8 +348,8 @@ export default function FamilyWallet() {
               <Button
                 className={`w-full ${
                   familyHealthPlan.isActive
-                    ? "bg-[#003049] hover:bg-[#002639]"
-                    : "bg-gradient-to-r from-[#003049] to-[#669bbc] hover:shadow-lg"
+                    ? "bg-gray-900 hover:bg-gray-800 text-white"
+                    : "bg-gray-900 hover:bg-gray-800 text-white hover:shadow-lg"
                 }`}
                 size="lg"
               >
@@ -382,8 +382,8 @@ export default function FamilyWallet() {
                 {/* Modal Header */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-50 rounded-lg">
-                      <UserPlus className="h-5 w-5 text-[#003049]" />
+                    <div className="p-2 bg-gray-100 rounded-lg">
+                      <UserPlus className="h-5 w-5 text-gray-900" />
                     </div>
                     <h3 className="text-xl font-bold text-gray-900">
                       {editingMember ? "Edit Family Member" : "Add Family Member"}
@@ -401,7 +401,7 @@ export default function FamilyWallet() {
                 <div className="space-y-4">
                   {/* Full Name */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-900 mb-2">
                       Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -410,13 +410,13 @@ export default function FamilyWallet() {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Enter full name"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#669bbc] focus:border-transparent outline-none transition-all"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all text-gray-900"
                     />
                   </div>
 
                   {/* Age */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-900 mb-2">
                       Age <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -427,20 +427,20 @@ export default function FamilyWallet() {
                       placeholder="Enter age"
                       min="0"
                       max="120"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#669bbc] focus:border-transparent outline-none transition-all"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all text-gray-900"
                     />
                   </div>
 
                   {/* Relationship */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-900 mb-2">
                       Relationship
                     </label>
                     <select
                       name="relationship"
                       value={formData.relationship}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#669bbc] focus:border-transparent outline-none transition-all bg-white"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all bg-white text-gray-900"
                     >
                       <option value="Father">Father</option>
                       <option value="Mother">Mother</option>
@@ -461,13 +461,13 @@ export default function FamilyWallet() {
                   <Button
                     variant="outline"
                     onClick={() => setShowModal(false)}
-                    className="flex-1"
+                    className="flex-1 border-2 border-gray-300 text-gray-900 hover:bg-gray-100"
                   >
                     Cancel
                   </Button>
                   <Button
                     onClick={handleSaveMember}
-                    className="flex-1 bg-[#003049] hover:bg-[#002639]"
+                    className="flex-1 bg-gray-900 hover:bg-gray-800 text-white"
                   >
                     {editingMember ? "Update" : "Save"}
                   </Button>

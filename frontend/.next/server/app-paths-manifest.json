@@ -1,7 +1,7 @@
 {
-  "/simple-profile/page": "app/simple-profile/page.js",
   "/health-check/page": "app/health-check/page.js",
-  "/profile/page": "app/profile/page.js",
+  "/mental-health/page": "app/mental-health/page.js",
   "/hero/page": "app/hero/page.js",
-  "/mental-health/page": "app/mental-health/page.js"
+  "/simple-profile/page": "app/simple-profile/page.js",
+  "/profile/page": "app/profile/page.js"
 }

@@ -16,26 +16,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/hero/page.js"
     ],
-    "/health-check/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/health-check/page.js"
-    ],
-    "/simple-profile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/simple-profile/page.js"
-    ],
-    "/mental-health/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/mental-health/page.js"
-    ],
-    "/test-ai/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/test-ai/page.js"
-    ],
     "/find-doctor/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -46,20 +26,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/find-doctor/page.js"
     ],
-    "/3d-lab/layout": [
+    "/health-check/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/3d-lab/layout.js"
+      "static/chunks/app/health-check/page.js"
     ],
-    "/3d-lab/loading": [
+    "/mental-health/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/3d-lab/loading.js"
+      "static/chunks/app/mental-health/page.js"
     ],
-    "/3d-lab/page": [
+    "/simple-profile/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/3d-lab/page.js"
+      "static/chunks/app/simple-profile/page.js"
+    ],
+    "/test-ai/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/test-ai/page.js"
+    ],
+    "/profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/profile/page.js"
     ]
   }
 }
