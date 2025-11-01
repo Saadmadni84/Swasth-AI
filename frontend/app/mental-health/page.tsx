@@ -76,7 +76,7 @@ export default function MentalHealthDashboard() {
       setError(null);
     } catch (err) {
       console.error('Error fetching smartwatch data:', err);
-      setError('Failed to connect to smartwatch API. Make sure backend is running on port 5000.');
+      setError('Failed to connect to smartwatch API. Make sure backend is running on port 5001.');
     } finally {
       setLoading(false);
     }

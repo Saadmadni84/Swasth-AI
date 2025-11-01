@@ -23,7 +23,7 @@ import { Progress } from "@/components/ui/progress";
 const initialFamilyMembers = [
   {
     id: 1,
-    name: "John Doe",
+    name: "Shahzad khan",
     age: 45,
     relationship: "Self",
     avatar: "https://ui-avatars.com/api/?name=John+Doe&background=003049&color=fff&size=200",
@@ -31,7 +31,7 @@ const initialFamilyMembers = [
   },
   {
     id: 2,
-    name: "Jane Doe",
+    name: "Sania",
     age: 42,
     relationship: "Spouse",
     avatar: "https://ui-avatars.com/api/?name=Jane+Doe&background=669bbc&color=fff&size=200",
@@ -39,7 +39,7 @@ const initialFamilyMembers = [
   },
   {
     id: 3,
-    name: "Emily Doe",
+    name: "Ayesha",
     age: 16,
     relationship: "Daughter",
     avatar: "https://ui-avatars.com/api/?name=Emily+Doe&background=c1121f&color=fff&size=200",

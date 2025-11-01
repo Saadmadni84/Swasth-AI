@@ -190,7 +190,7 @@ const Navbar = () => {
               ) : (
                 <div className="flex items-center space-x-3">
                   <LinkComponent href="/auth/login" className="flex items-center space-x-2">
-                    <span>🔑</span>
+                    <span></span>
                     <span>Login</span>
                   </LinkComponent>
                   <Link
@@ -282,7 +282,7 @@ const Navbar = () => {
                     href="/auth/login"
                     className="flex items-center space-x-3 px-4 py-3 text-slate-300 hover:bg-slate-800/50 hover:text-blue-400 rounded-lg transition-colors"
                   >
-                    <span className="text-xl">🔑</span>
+                    <span className="text-xl"></span>
                     <span className="font-medium">Login</span>
                   </Link>
                   <Link

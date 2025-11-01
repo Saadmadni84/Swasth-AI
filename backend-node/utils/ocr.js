@@ -23,11 +23,20 @@ async function extractTextFromImage(imagePath) {
           if (info.status === 'recognizing text') {
             console.log(`   OCR Progress: ${Math.round(info.progress * 100)}%`);
           }
-        }
+        },
+        // Enhanced OCR configuration for better accuracy
+        tessedit_pageseg_mode: Tesseract.PSM.AUTO,
+        tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:-/()% @',
+        preserve_interword_spaces: '1',
       }
     );
 
     console.log(`✅ OCR completed for: ${path.basename(imagePath)}`);
+    console.log(`📝 Raw OCR text length: ${result.data.text.length} characters`);
+    
+    // Log first 200 characters for debugging
+    console.log(`📝 First 200 chars: "${result.data.text.substring(0, 200)}"`);
+    
     return result.data.text;
   } catch (error) {
     console.error(`❌ OCR failed for ${path.basename(imagePath)}:`, error.message);
@@ -44,11 +53,16 @@ function cleanText(text) {
   if (!text) return '';
   
   return text
-    // Remove excessive whitespace
-    .replace(/\s+/g, ' ')
-    // Remove special characters but keep medical symbols
-    .replace(/[^\w\s.,()%/:;-]/g, '')
-    // Trim leading/trailing spaces
+    // Normalize line breaks
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
+    // Remove excessive blank lines (more than 2)
+    .replace(/\n{3,}/g, '\n\n')
+    // Normalize spaces (but keep structure)
+    .replace(/[ \t]+/g, ' ')
+    // Remove spaces at start and end of lines
+    .split('\n').map(line => line.trim()).join('\n')
+    // Trim overall
     .trim();
 }
 

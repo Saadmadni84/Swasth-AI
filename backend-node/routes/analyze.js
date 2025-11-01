@@ -6,6 +6,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
+const pdfParse = require('pdf-parse');
 const { convertPdfToImages, cleanupTempFiles } = require('../utils/pdf');
 const { extractTextFromMultipleImages } = require('../utils/ocr');
 const { analyzeMedicalReport } = require('../utils/analysis');
@@ -75,23 +76,43 @@ router.post('/analyze', upload.single('file'), async (req, res) => {
     console.log(`📁 File received: ${req.file.originalname}`);
     console.log(`📊 File size: ${(req.file.size / 1024 / 1024).toFixed(2)} MB`);
 
-    // Step 1: Convert PDF to images
-    imageDir = path.join(uploadsDir, `temp-${Date.now()}`);
-    const imagePaths = await convertPdfToImages(pdfPath, imageDir);
+    // Step 1: Try to extract text directly from PDF first (much better than OCR for text-based PDFs)
+    let extractedText = '';
+    try {
+      console.log('\n📖 Attempting direct PDF text extraction...');
+      const pdfBuffer = await fs.readFile(pdfPath);
+      const pdfData = await pdfParse(pdfBuffer);
+      
+      if (pdfData.text && pdfData.text.trim().length > 100) {
+        extractedText = pdfData.text;
+        console.log(`✅ Successfully extracted text directly from PDF`);
+        console.log(`📊 Extracted ${extractedText.length} characters`);
+      } else {
+        console.log(`⚠️  PDF has minimal text (${pdfData.text.length} chars), falling back to OCR`);
+        throw new Error('Insufficient text in PDF');
+      }
+    } catch (pdfTextError) {
+      console.log(`⚠️  Direct PDF extraction failed: ${pdfTextError.message}`);
+      console.log('📸 Falling back to OCR method...');
+      
+      // Step 2: Fallback to OCR if direct extraction fails
+      imageDir = path.join(uploadsDir, `temp-${Date.now()}`);
+      const imagePaths = await convertPdfToImages(pdfPath, imageDir);
 
-    if (imagePaths.length === 0) {
-      throw new Error('No pages could be extracted from the PDF');
+      if (imagePaths.length === 0) {
+        throw new Error('No pages could be extracted from the PDF');
+      }
+
+      // Extract text using OCR
+      console.log('\n🔤 Starting OCR text extraction...');
+      extractedText = await extractTextFromMultipleImages(imagePaths);
+
+      if (!extractedText || extractedText.trim().length === 0) {
+        throw new Error('No text could be extracted from the PDF. The file may be an image-only PDF or empty.');
+      }
+
+      console.log(`✅ Extracted ${extractedText.length} characters via OCR`);
     }
-
-    // Step 2: Extract text using OCR
-    console.log('\n🔤 Starting OCR text extraction...');
-    const extractedText = await extractTextFromMultipleImages(imagePaths);
-
-    if (!extractedText || extractedText.trim().length === 0) {
-      throw new Error('No text could be extracted from the PDF. The file may be an image-only PDF or empty.');
-    }
-
-    console.log(`✅ Extracted ${extractedText.length} characters`);
 
     // Step 3: Analyze medical report
     console.log('\n🔬 Analyzing medical report...');
@@ -99,7 +120,9 @@ router.post('/analyze', upload.single('file'), async (req, res) => {
 
     // Step 4: Clean up temporary files
     console.log('\n🧹 Cleaning up...');
-    await cleanupTempFiles(imageDir);
+    if (imageDir) {
+      await cleanupTempFiles(imageDir);
+    }
     await fs.unlink(pdfPath);
     console.log('✅ Temporary files removed');
 

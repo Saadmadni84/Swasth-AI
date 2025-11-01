@@ -131,7 +131,7 @@ export default function DashboardPage() {
 
     const sampleMember = {
       user_id: user.id,
-      full_name: 'Jane Doe',
+      full_name: 'sania',
       relationship: 'spouse',
       date_of_birth: '1992-05-15',
       gender: 'female',
@@ -198,7 +198,7 @@ export default function DashboardPage() {
                 href="/auth/login"
                 className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
               >
-                <span>🔑</span>
+                <span></span>
                 <span className="ml-2">Login to Continue</span>
               </Link>
             </div>

@@ -107,7 +107,7 @@ import { profileOperations } from '@/lib/database-utils'
 const { data, error } = await profileOperations.upsertProfile({
   id: user.id,
   email: user.email,
-  full_name: 'John Doe',
+  full_name: 'Shahzad khan',
   phone: '+1234567890',
   // ... other profile data
 })
@@ -119,7 +119,7 @@ import { familyOperations } from '@/lib/database-utils'
 
 const { data, error } = await familyOperations.addFamilyMember({
   user_id: user.id,
-  full_name: 'Jane Doe',
+  full_name: 'Sania',
   relationship: 'spouse',
   blood_group: 'A+',
   // ... other member data

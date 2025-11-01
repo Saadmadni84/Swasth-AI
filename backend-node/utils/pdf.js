@@ -23,8 +23,9 @@ async function convertPdfToImages(pdfPath, outputDir) {
     
     console.log('🔄 Starting PDF conversion...');
     
-    // Use system pdftocairo command (installed via Homebrew)
-    const command = `pdftocairo -png -r 300 "${pdfPath}" "${outputPrefix}"`;
+    // Use system pdftocairo command with higher resolution for better OCR
+    // 600 DPI provides much better text recognition
+    const command = `pdftocairo -png -r 600 "${pdfPath}" "${outputPrefix}"`;
     
     try {
       execSync(command, { stdio: 'pipe' });

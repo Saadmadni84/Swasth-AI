@@ -38,43 +38,36 @@ const Navbar = () => {
     {
       href: '/hero',
       label: 'Home',
-      icon: '🏠',
       isActive: pathname === '/hero' || pathname === '/'
     },
     {
       href: '/health-check',
       label: 'Health Check',
-      icon: '🩺',
       isActive: pathname === '/health-check'
     },
     {
       href: '/mental-health',
       label: 'Mental Health',
-      icon: '🧠',
       isActive: pathname === '/mental-health'
     },
     {
       href: '/3d-lab',
       label: '3D Lab',
-      icon: '🧬',
       isActive: pathname === '/3d-lab'
     },
     {
       href: '/find-doctor',
       label: 'Find Doctor',
-      icon: '👨‍⚕️',
       isActive: pathname === '/find-doctor'
     },
     {
       href: '/test-ai',
       label: 'AI Assistant',
-      icon: '🤖',
       isActive: pathname === '/test-ai'
     },
     {
       href: '/simple-profile',
       label: 'My Profile',
-      icon: '👤',
       isActive: pathname === '/simple-profile'
     }
   ];
@@ -157,7 +150,6 @@ const Navbar = () => {
                   isActive={link.isActive}
                   className="flex items-center space-x-2"
                 >
-                  <span className="text-base">{link.icon}</span>
                   <span>{link.label}</span>
                 </LinkComponent>
               ))}
@@ -172,7 +164,6 @@ const Navbar = () => {
                     isActive={pathname === '/dashboard'}
                     className="flex items-center space-x-2"
                   >
-                    <span>📊</span>
                     <span>Dashboard</span>
                   </LinkComponent>
                   <div className="flex items-center space-x-2 px-3 py-2 bg-slate-800/60 rounded-lg border border-slate-700/50">
@@ -189,21 +180,18 @@ const Navbar = () => {
                     onClick={handleSignOut}
                     className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg font-medium hover:bg-red-500/30 hover:text-red-300 transition-colors duration-200 flex items-center space-x-2 border border-red-500/30"
                   >
-                    <span>👋</span>
                     <span>Sign Out</span>
                   </button>
                 </div>
               ) : (
                 <div className="flex items-center space-x-3">
-                  <LinkComponent href="/auth/login" className="flex items-center space-x-2">
-                    <span>🔑</span>
+                  <LinkComponent href="/auth/login" isActive={false} className="flex items-center space-x-2">
                     <span>Login</span>
                   </LinkComponent>
                   <Link
                     href="/auth/signup"
                     className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/25 flex items-center space-x-2"
                   >
-                    <span>✨</span>
                     <span>Sign Up</span>
                   </Link>
                 </div>
@@ -246,7 +234,6 @@ const Navbar = () => {
                     : 'text-slate-300 hover:bg-slate-800/50 hover:text-blue-400'
                 }`}
               >
-                <span className="text-xl">{link.icon}</span>
                 <span className="font-medium">{link.label}</span>
               </Link>
             ))}
@@ -271,14 +258,12 @@ const Navbar = () => {
                     href="/dashboard"
                     className="flex items-center space-x-3 px-4 py-3 text-slate-300 hover:bg-slate-800/50 hover:text-blue-400 rounded-lg transition-colors"
                   >
-                    <span className="text-xl">📊</span>
                     <span className="font-medium">Dashboard</span>
                   </Link>
                   <button
                     onClick={handleSignOut}
                     className="w-full flex items-center space-x-3 px-4 py-3 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors"
                   >
-                    <span className="text-xl">👋</span>
                     <span className="font-medium">Sign Out</span>
                   </button>
                 </div>
@@ -288,14 +273,12 @@ const Navbar = () => {
                     href="/auth/login"
                     className="flex items-center space-x-3 px-4 py-3 text-slate-300 hover:bg-slate-800/50 hover:text-blue-400 rounded-lg transition-colors"
                   >
-                    <span className="text-xl">🔑</span>
                     <span className="font-medium">Login</span>
                   </Link>
                   <Link
                     href="/auth/signup"
                     className="flex items-center space-x-3 px-4 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg font-medium shadow-lg"
                   >
-                    <span className="text-xl">✨</span>
                     <span>Sign Up</span>
                   </Link>
                 </div>

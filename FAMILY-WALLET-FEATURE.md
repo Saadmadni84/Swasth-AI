@@ -46,7 +46,7 @@ Blue Gradient:  from-blue-50 to-cyan-50 (Backgrounds)
 #### Family Member Cards
 ```
 ┌────────────────────────────────┐
-│  👤 [Avatar]  John Doe    👑   │  <- Crown for Self
+│  👤 [Avatar] Shazad khan    👑   │  <- Crown for Self
 │               Spouse • 42 yrs  │
 │                                │
 │  ✅ Active                     │  <- Health Plan Status
