@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Save, User, Phone, Calendar, MapPin, Mail, Droplets, Shield } from 'lucide-react';
+import FamilyWallet from '@/components/family-wallet';
 
 interface ProfileData {
   full_name: string;
@@ -500,11 +501,21 @@ export default function SimpleProfilePage() {
           </motion.div>
         )}
 
+        {/* Family Wallet Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="mt-8"
+        >
+          <FamilyWallet />
+        </motion.div>
+
         {/* Footer */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
+          transition={{ delay: 0.8 }}
           className="text-center mt-8 text-sm text-gray-500"
         >
           <p>Your profile data is stored locally in your browser for privacy and security.</p>
