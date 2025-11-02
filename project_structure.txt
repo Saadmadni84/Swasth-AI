@@ -1,0 +1,107 @@
+SwasthAI/
+├── README.md
+├── package.json
+├── docker-compose.yml
+├── .env.local
+├── .env.local.example
+├── start-all.sh
+│
+├── frontend/                    # Next.js Frontend (Port 3001/3002)
+│   ├── app/
+│   │   ├── page.tsx            # Home page
+│   │   ├── layout.tsx          # Root layout
+│   │   ├── globals.css         # Global styles
+│   │   │
+│   │   ├── api/                # API routes
+│   │   │   ├── predict/
+│   │   │   │   ├── diabetes/route.ts
+│   │   │   │   ├── heart/route.ts
+│   │   │   │   └── parkinsons/route.ts
+│   │   │   ├── auth/
+│   │   │   ├── gemini/
+│   │   │   ├── doctors/route.ts
+│   │   │   ├── news/route.ts
+│   │   │   └── analyze/route.ts
+│   │   │
+│   │   ├── health-check/page.tsx      # Disease prediction
+│   │   ├── mental-health/page.tsx     # Mental health dashboard
+│   │   ├── find-doctor/page.tsx       # Doctor finder
+│   │   ├── family-vault/page.tsx      # Family health vault
+│   │   ├── health-records/page.tsx    # Medical records
+│   │   ├── 3d-lab/page.tsx           # 3D medical viewer
+│   │   ├── profile/page.tsx          # User profile
+│   │   └── auth/
+│   │       ├── login/page.tsx
+│   │       └── signup/page.tsx
+│   │
+│   ├── components/
+│   │   ├── ui/                 # Shadcn UI components
+│   │   ├── DiabetesWithAnatomy.jsx
+│   │   ├── HeartDiseaseWithVisualization.tsx
+│   │   ├── ParkinsonsForm.tsx
+│   │   ├── DiseaseTabs.jsx
+│   │   ├── MedicalOCRAnalyzer.tsx
+│   │   ├── navbar.tsx
+│   │   └── footer.tsx
+│   │
+│   ├── styles/
+│   ├── contexts/
+│   ├── hooks/
+│   ├── lib/
+│   ├── next.config.mjs
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── tailwind.config.js
+│
+├── backend/                    # Flask ML Backend (Port 5003)
+│   ├── app.py                 # Main Flask application
+│   ├── models/
+│   │   └── ml/
+│   │       ├── diabetes_model.pkl
+│   │       ├── heart_disease_model.pkl
+│   │       └── parkinsons_model.pkl
+│   ├── Dockerfile
+│   └── requirements.txt
+│
+├── backend-node/              # Node.js Backend (Port 5001)
+│   ├── server.js             # Express server
+│   ├── routes/
+│   │   ├── analyze.js        # OCR analysis
+│   │   └── smartwatch.js     # Smartwatch data
+│   ├── utils/
+│   │   ├── ocr.js           # Tesseract OCR
+│   │   ├── pdf.js           # PDF processing
+│   │   └── analysis.js      # Medical data extraction
+│   ├── package.json
+│   └── uploads/             # Temp upload directory
+│
+├── ml-backend/               # Alternative ML backend
+│   ├── venv/
+│   └── models/
+│
+├── database/                 # Database schemas
+│   ├── schema.sql
+│   └── missing-tables.sql
+│
+└── Documentation/
+    ├── DEPLOYMENT-GUIDE.md
+    ├── MEDICAL-AI-SETUP.md
+    ├── MENTAL-HEALTH-SETUP.md
+    ├── FIND-DOCTOR-VISUAL-GUIDE.md
+    ├── FAMILY-WALLET-VISUAL-GUIDE.md
+    ├── README-SUPABASE.md
+    └── VERCEL-DEPLOYMENT-FIX.md
+
+Key Technologies:
+- Frontend: Next.js 15, React 19, TypeScript, Tailwind CSS
+- ML Backend: Flask, scikit-learn, joblib, numpy
+- Node Backend: Express, Tesseract.js, pdf-parse
+- Database: Supabase (PostgreSQL)
+- 3D: Three.js, React Three Fiber
+- Charts: Chart.js, react-chartjs-2
+- AI: Google Gemini API
+
+Running Services:
+- Frontend: http://localhost:3001 or :3002
+- Node Backend: http://localhost:5001
+- Flask ML Backend: http://localhost:5003

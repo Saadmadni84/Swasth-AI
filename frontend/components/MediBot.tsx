@@ -54,7 +54,7 @@ export default function MediBot() {
       setMessages([
         {
           id: '1',
-          text: "Hello! I'm MediBot, your AI Health Assistant. How can I help you today?",
+          text: "Hello! I'm MediBot, your AI Health Assistant powered by SwasthAI's n8n workflow and Ollama. I can help you with symptom analysis and traditional Indian home remedies. How can I help you today?",
           sender: 'bot',
           timestamp: new Date(),
         },
@@ -91,27 +91,66 @@ export default function MediBot() {
 
     // Add user message to chat
     setMessages((prev) => [...prev, userMessage]);
+    const userInput = inputText;
     setInputText('');
     setIsTyping(true);
     
     // Prevent any scroll
     const currentScroll = window.scrollY;
 
-    // Simulate bot response (replace this with actual API call)
-    setTimeout(() => {
+    try {
+      // Call Flask backend which integrates with n8n workflow
+      const backendUrl = process.env.NEXT_PUBLIC_ML_API_URL || 'http://localhost:5001';
+      
+      const response = await fetch(`${backendUrl}/analyze/text`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: userInput,
+          use_n8n: true  // Use n8n workflow with Ollama
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.status === 'success') {
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: data.prediction || data.finalResponse || 'I apologize, but I couldn\'t process your request. Please try again or consult a healthcare professional.',
+          sender: 'bot',
+          timestamp: new Date(),
+        };
+
+        setMessages((prev) => [...prev, botMessage]);
+      } else {
+        // Fallback to local response if API fails
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: data.error || getBotResponse(userInput) + '\n\n⚠️ Note: AI service is temporarily unavailable. Please consult a healthcare professional for accurate medical advice.',
+          sender: 'bot',
+          timestamp: new Date(),
+        };
+
+        setMessages((prev) => [...prev, botMessage]);
+      }
+    } catch (error) {
+      console.error('Error calling n8n workflow:', error);
+      // Fallback to local response
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: getBotResponse(inputText),
+        text: getBotResponse(userInput) + '\n\n⚠️ Note: Unable to connect to AI service. Please ensure the backend is running. For medical concerns, consult a healthcare professional.',
         sender: 'bot',
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, botMessage]);
+    } finally {
       setIsTyping(false);
-      
       // Restore scroll position
       window.scrollTo(0, currentScroll);
-    }, 2000);
+    }
   };
 
   // Simulate bot response (replace with actual AI API integration)
@@ -136,7 +175,7 @@ export default function MediBot() {
     setMessages([
       {
         id: Date.now().toString(),
-        text: "Hello! I'm MediBot, your AI Health Assistant. How can I help you today?",
+        text: "Hello! I'm MediBot, your AI Health Assistant powered by SwasthAI's n8n workflow and Ollama. I can help you with symptom analysis and traditional Indian home remedies. How can I help you today?",
         sender: 'bot',
         timestamp: new Date(),
       },

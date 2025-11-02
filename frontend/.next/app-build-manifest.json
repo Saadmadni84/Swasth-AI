@@ -16,15 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/hero/page.js"
     ],
-    "/health-check/page": [
+    "/test-ai/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/health-check/page.js"
-    ],
-    "/api/predict/diabetes/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/predict/diabetes/route.js"
+      "static/chunks/app/test-ai/page.js"
     ]
   }
 }

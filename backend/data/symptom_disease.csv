@@ -1,0 +1,7 @@
+symptoms,disease,recommendation
+fever,cold,rest and fluids; visit general physician if >3 days
+fever,cough,flu,rest; consider antivirals; visit GP
+chest pain,shortness of breath,heart attack,go to ER immediately
+headache,nausea,migraine,see a neurologist if frequent
+sore throat,fever,strep throat,visit ENT / GP for testing
+abdominal pain,diarrhea,gastroenteritis,hydration and GP consult

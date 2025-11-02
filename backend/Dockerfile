@@ -1,27 +1,32 @@
-## Dockerfile for SwasthAI Python Backend (Flask API)
+# Use lightweight Python image
 FROM python:3.11-slim
 
-# Install curl for healthchecks
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends curl \
-	&& rm -rf /var/lib/apt/lists/*
+# System dependencies (for OCR, audio, etc.)
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    tesseract-ocr \
+    libtesseract-dev \
+    build-essential \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
+# Working directory
 WORKDIR /app
 
-# Copy requirements and install dependencies
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt \
-	&& pip cache purge
+# Copy requirements and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all backend source (models, utils, app.py, etc.)
+# Copy all project files
 COPY . .
 
-# Expose port
-EXPOSE 5000
+# Expose Flask port (using 5001 to avoid macOS AirPlay conflict)
+EXPOSE 5001
 
-# Environment
+# Environment variables
 ENV FLASK_ENV=production
+ENV PYTHONUNBUFFERED=1
 
-# Run the application
+# Run the Flask app
 CMD ["python", "app.py"]

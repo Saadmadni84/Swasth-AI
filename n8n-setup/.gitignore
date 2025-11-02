@@ -1,0 +1,4 @@
+.n8n/
+.env.local
+*.log
+

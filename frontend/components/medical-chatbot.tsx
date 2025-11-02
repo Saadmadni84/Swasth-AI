@@ -34,7 +34,7 @@ export default function MedicalChatbot() {
     {
       id: '1',
       type: 'bot',
-      content: 'Hello! I\'m SwasthAI, your AI-powered medical assistant powered by Google Gemini. I can help you with:\n\n• Symptom analysis and general health guidance\n• Understanding medical conditions\n• Medication information\n• Healthy lifestyle recommendations\n\n⚠️ **Important**: I provide general health information only. For serious concerns, emergencies, or specific medical advice, please consult a qualified healthcare professional.\n\nHow can I assist you today?',
+      content: 'Hello! I\'m SwasthAI, your AI-powered health assistant powered by Ollama and n8n workflows. I specialize in traditional Indian home remedies and symptom analysis.\n\nI can help you with:\n• Symptom analysis and explanations\n• Traditional Indian (desi) home remedy suggestions\n• Understanding possible causes of symptoms\n• Preventive measures and health tips\n\n⚠️ **Important**: I provide general health information and home remedies only. For serious concerns, emergencies, or specific medical advice, please consult a qualified healthcare professional immediately.\n\nHow can I assist you today?',
       timestamp: new Date(),
       mediaType: 'text'
     }
@@ -72,7 +72,8 @@ export default function MedicalChatbot() {
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
-        const response = await fetch('/api/gemini', {
+        // Check if Flask backend is running
+        const response = await fetch('http://localhost:5001/', {
           method: 'GET',
         })
         setApiStatus(response.ok ? 'online' : 'offline')
@@ -101,31 +102,30 @@ export default function MedicalChatbot() {
     setIsLoading(true)
 
     try {
-      // Call Gemini API for medical assistance
-      const response = await fetch('/api/gemini', {
+      // Call Flask backend which integrates with n8n workflow
+      // Flask backend URL - use environment variable or default to localhost:5001
+      const backendUrl = process.env.NEXT_PUBLIC_ML_API_URL || 'http://localhost:5001'
+      
+      const response = await fetch(`${backendUrl}/analyze/text`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          question: content,
-          type: 'symptoms',
-          context: {
-            mediaType,
-            isHealthQuery: true,
-            userContext: 'Medical chatbot consultation'
-          }
+          text: content,
+          use_n8n: true  // Use n8n workflow with Ollama
         }),
       })
 
       const data = await response.json()
 
-      if (response.ok) {
+      if (response.ok && data.status === 'success') {
         setApiStatus('online')
+        // Extract the prediction/response from n8n workflow
         const botResponse: Message = {
           id: (Date.now() + 1).toString(),
           type: 'bot',
-          content: data.response || 'I apologize, but I couldn\'t process your request. Please try again or consult a healthcare professional.',
+          content: data.prediction || data.finalResponse || 'I apologize, but I couldn\'t process your request. Please try again or consult a healthcare professional.',
           timestamp: new Date(),
           mediaType: 'text'
         }
@@ -136,20 +136,20 @@ export default function MedicalChatbot() {
         const errorResponse: Message = {
           id: (Date.now() + 1).toString(),
           type: 'bot',
-          content: 'I\'m experiencing technical difficulties with the AI service. Please try again later or consult a healthcare professional for immediate concerns.',
+          content: data.error || 'I\'m experiencing technical difficulties with the AI service. Please ensure the backend and n8n workflow are running. For immediate concerns, please consult a healthcare professional.',
           timestamp: new Date(),
           mediaType: 'text'
         }
         setMessages(prev => [...prev, errorResponse])
       }
     } catch (error) {
-      console.error('Error calling Gemini API:', error)
+      console.error('Error calling n8n workflow via Flask backend:', error)
       setApiStatus('offline')
       // Fallback to local response if API is unavailable
       const fallbackResponse: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: `${getAIResponse(content, mediaType)}\n\n⚠️ Note: AI service is currently unavailable. This is a basic response. For accurate medical advice, please consult a healthcare professional.`,
+        content: `I'm unable to connect to the AI service right now. ${getAIResponse(content, mediaType)}\n\n⚠️ Note: Please ensure:\n• Flask backend is running on port 5001\n• n8n workflow is active\n• Ollama is running\n\nFor immediate medical concerns, please consult a healthcare professional.`,
         timestamp: new Date(),
         mediaType: 'text'
       }
