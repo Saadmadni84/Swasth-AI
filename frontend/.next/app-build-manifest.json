@@ -16,15 +16,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/hero/page.js"
     ],
-    "/simple-profile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/simple-profile/page.js"
-    ],
     "/test-ai/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/test-ai/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

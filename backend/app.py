@@ -443,4 +443,4 @@ if __name__ == "__main__":
     # Use port 5001 to avoid conflict with macOS AirPlay on port 5000
     port = int(os.environ.get('PORT', 5001))
     debug_mode = os.environ.get('FLASK_ENV') != 'production'
-    app.run(debug=debug_mode, host='0.0.0.0', port=port)
+    app.run(debug=debug_mode, host='0.0.0.0', port=port, use_reloader=False)
