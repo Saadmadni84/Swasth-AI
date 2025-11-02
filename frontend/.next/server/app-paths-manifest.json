@@ -1,4 +1,8 @@
 {
+  "/mental-health/page": "app/mental-health/page.js",
+  "/test-ai/page": "app/test-ai/page.js",
+  "/page": "app/page.js",
   "/health-check/page": "app/health-check/page.js",
-  "/mental-health/page": "app/mental-health/page.js"
+  "/medibot/page": "app/medibot/page.js",
+  "/hero/page": "app/hero/page.js"
 }
