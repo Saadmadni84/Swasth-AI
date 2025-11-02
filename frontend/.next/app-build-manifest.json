@@ -6,6 +6,36 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/hero/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/hero/page.js"
+    ],
+    "/simple-profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/simple-profile/page.js"
+    ],
+    "/3d-lab/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/3d-lab/layout.js"
+    ],
+    "/3d-lab/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/3d-lab/loading.js"
+    ],
+    "/3d-lab/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/3d-lab/page.js"
+    ],
     "/mental-health/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -16,25 +46,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/health-check/page.js"
     ],
-    "/hero/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/hero/page.js"
-    ],
     "/test-ai/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/test-ai/page.js"
-    ],
-    "/medibot/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/medibot/page.js"
-    ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
     ]
   }
 }
