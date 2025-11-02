@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "name": "swasthai-frontend",
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key",
+      "GEMINI_API_KEY": "@gemini_api_key",
+      "GOOGLE_MAPS_API_KEY": "@google_maps_api_key"
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key",
+    "GEMINI_API_KEY": "@gemini_api_key",
+    "TEAM_API_KEY": "@team_api_key",
+    "GOOGLE_MAPS_API_KEY": "@google_maps_api_key",
+    "DOC_MODEL_ID": "gemini-1.5-flash",
+    "SUMM_MODEL_ID": "gemini-1.5-flash",
+    "NEWS_MODEL_ID": "gemini-1.5-flash",
+    "AGENT_MODEL_ID": "gemini-1.5-pro",
+    "NEXT_PUBLIC_ML_BACKEND_URL": "@next_public_ml_backend_url",
+    "NEXT_PUBLIC_NODE_BACKEND_URL": "@next_public_node_backend_url"
+  },
+  "regions": ["iad1"],
+  "framework": "nextjs",
+  "installCommand": "cd frontend && npm install",
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/.next",
+  "functions": {
+    "frontend/app/api/**/*.{js,ts}": {
+      "maxDuration": 30
+    }
+  }
+}

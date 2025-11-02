@@ -41,6 +41,10 @@ services:
       - "5678:5678"
     environment:
       - N8N_BASIC_AUTH_ACTIVE=false
+      - N8N_HOST=0.0.0.0
+      - WEBHOOK_URL=http://localhost:5678/
+      - N8N_EXTERNAL_URL=http://localhost:5678
+      - N8N_CORS_ALLOW_ORIGINS=http://localhost:3000,http://localhost:3001,http://localhost:5003
     volumes:
       - ./n8n/.n8n:/home/node/.n8n
     restart: unless-stopped

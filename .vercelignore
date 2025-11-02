@@ -1,0 +1,13 @@
+# Vercel Ignore File
+# Ignore backend files when deploying frontend
+
+backend/
+backend-node/
+ml-backend/
+n8n/
+database/
+*.py
+requirements.txt
+railway.toml
+render.yaml
+docker-compose.yml

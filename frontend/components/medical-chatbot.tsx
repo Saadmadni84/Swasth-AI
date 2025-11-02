@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
+import Avatar3D from "@/components/Avatar3D"
 import { 
   Send, 
   Mic, 
@@ -44,11 +45,14 @@ export default function MedicalChatbot() {
   const [isLoading, setIsLoading] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
   const [apiStatus, setApiStatus] = useState<'online' | 'offline' | 'checking'>('checking')
+  const [isAvatarSpeaking, setIsAvatarSpeaking] = useState(false)
+  const [lastBotMessage, setLastBotMessage] = useState<string>('')
   
   const fileInputRef = useRef<HTMLInputElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const chunksRef = useRef<Blob[]>([])
+  const synthRef = useRef<SpeechSynthesis | null>(null)
 
   const scrollToBottom = () => {
     // Add a small delay to ensure DOM has updated
@@ -103,8 +107,8 @@ export default function MedicalChatbot() {
 
     try {
       // Call Flask backend which integrates with n8n workflow
-      // Flask backend URL - use environment variable or default to localhost:5001
-      const backendUrl = process.env.NEXT_PUBLIC_ML_API_URL || 'http://localhost:5001'
+      // Flask backend URL - use environment variable or default to localhost:5003
+      const backendUrl = process.env.NEXT_PUBLIC_ML_API_URL || 'http://localhost:5003'
       
       const response = await fetch(`${backendUrl}/analyze/text`, {
         method: 'POST',
@@ -121,15 +125,21 @@ export default function MedicalChatbot() {
 
       if (response.ok && data.status === 'success') {
         setApiStatus('online')
+        const responseText = data.prediction || data.finalResponse || 'I apologize, but I couldn\'t process your request. Please try again or consult a healthcare professional.'
+        
         // Extract the prediction/response from n8n workflow
         const botResponse: Message = {
           id: (Date.now() + 1).toString(),
           type: 'bot',
-          content: data.prediction || data.finalResponse || 'I apologize, but I couldn\'t process your request. Please try again or consult a healthcare professional.',
+          content: responseText,
           timestamp: new Date(),
           mediaType: 'text'
         }
         setMessages(prev => [...prev, botResponse])
+        setLastBotMessage(responseText)
+        
+        // Speak the response using Web Speech API
+        speakText(responseText)
       } else {
         setApiStatus('offline')
         // Fallback response if API fails
@@ -149,7 +159,7 @@ export default function MedicalChatbot() {
       const fallbackResponse: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: `I'm unable to connect to the AI service right now. ${getAIResponse(content, mediaType)}\n\n⚠️ Note: Please ensure:\n• Flask backend is running on port 5001\n• n8n workflow is active\n• Ollama is running\n\nFor immediate medical concerns, please consult a healthcare professional.`,
+          content: `I'm unable to connect to the AI service right now. ${getAIResponse(content, mediaType)}\n\n⚠️ Note: Please ensure:\n• Flask backend is running on port 5003\n• n8n workflow is active\n• Ollama is running\n\nFor immediate medical concerns, please consult a healthcare professional.`,
         timestamp: new Date(),
         mediaType: 'text'
       }
@@ -229,6 +239,59 @@ export default function MedicalChatbot() {
       setIsRecording(false)
     }
   }
+
+  const speakText = (text: string) => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      return // Speech synthesis not supported
+    }
+
+    // Clean text - remove markdown formatting
+    const cleanText = text
+      .replace(/\*\*/g, '')
+      .replace(/\*/g, '')
+      .replace(/#{1,6}\s/g, '')
+      .replace(/⚠️|✅|❌|🎉/g, '')
+      .trim()
+
+    if (!cleanText) return
+
+    // Cancel any ongoing speech
+    if (synthRef.current) {
+      synthRef.current.cancel()
+    }
+
+    const synth = window.speechSynthesis
+    synthRef.current = synth
+
+    const utterance = new SpeechSynthesisUtterance(cleanText)
+    utterance.lang = 'en-US'
+    utterance.rate = 0.9
+    utterance.pitch = 1.1
+    utterance.volume = 0.8
+
+    utterance.onstart = () => {
+      setIsAvatarSpeaking(true)
+    }
+
+    utterance.onend = () => {
+      setIsAvatarSpeaking(false)
+    }
+
+    utterance.onerror = () => {
+      setIsAvatarSpeaking(false)
+    }
+
+    synth.speak(utterance)
+  }
+
+  // Cleanup speech on unmount
+  useEffect(() => {
+    return () => {
+      if (synthRef.current) {
+        synthRef.current.cancel()
+      }
+    }
+  }, [])
 
   return (
     <div className="w-full max-w-4xl mx-auto">
@@ -458,6 +521,28 @@ export default function MedicalChatbot() {
             {suggestion}
           </Button>
         ))}
+      </div>
+
+      {/* 3D Avatar Section */}
+      <div className="mt-6 w-full max-w-4xl mx-auto">
+        <Card className="bg-white/80 backdrop-blur-lg border border-slate-200/50 shadow-2xl rounded-3xl overflow-hidden">
+          <CardContent className="p-0">
+            <div className="p-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+              <h3 className="text-lg font-bold text-white text-center">SwasthAI Virtual Assistant</h3>
+            </div>
+            <div className="h-96 bg-gradient-to-br from-blue-50 to-indigo-100">
+              <Avatar3D isSpeaking={isAvatarSpeaking} />
+            </div>
+            {isAvatarSpeaking && (
+              <div className="p-3 bg-blue-50 border-t border-blue-100 text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-blue-600 font-medium">Avatar is speaking...</span>
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

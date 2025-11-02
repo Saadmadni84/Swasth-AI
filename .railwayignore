@@ -1,0 +1,13 @@
+# Railway Ignore File
+# Ignore frontend files when deploying backend
+
+frontend/
+node_modules/
+.next/
+.vercel/
+.git/
+.vscode/
+*.md
+.env.local
+.env.local.example
+docker-compose.yml

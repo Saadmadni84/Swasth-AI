@@ -193,3 +193,5 @@ The Flask backend will automatically detect and extract the text from either for
 
 Once n8n returns non-empty content, the chatbot will display AI-generated home remedies!
 
+
+

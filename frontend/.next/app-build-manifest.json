@@ -21,31 +21,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/simple-profile/page.js"
     ],
-    "/3d-lab/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/3d-lab/layout.js"
-    ],
-    "/3d-lab/loading": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/3d-lab/loading.js"
-    ],
-    "/3d-lab/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/3d-lab/page.js"
-    ],
-    "/mental-health/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/mental-health/page.js"
-    ],
-    "/health-check/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/health-check/page.js"
-    ],
     "/test-ai/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

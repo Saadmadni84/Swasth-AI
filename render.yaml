@@ -1,0 +1,24 @@
+services:
+  # Node.js Backend Service
+  - type: web
+    name: swasthai-node-backend
+    runtime: node
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: backend-node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5001
+      - key: MAX_FILE_SIZE
+        value: 10485760
+      - key: UPLOAD_DIR
+        value: ./uploads
+      - key: GEMINI_API_KEY
+        sync: false  # Add manually in dashboard
+    healthCheckPath: /
+    autoDeploy: true

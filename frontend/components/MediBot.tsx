@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, RefreshCw, Activity, Upload, FileText, X, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
+import Avatar3D from '@/components/Avatar3D';
 
 // Types for message structure
 interface Message {
@@ -240,7 +241,7 @@ export default function MediBot() {
 
     try {
       // Call Flask backend which integrates with n8n workflow
-      const backendUrl = process.env.NEXT_PUBLIC_ML_API_URL || 'http://localhost:5001';
+      const backendUrl = process.env.NEXT_PUBLIC_ML_API_URL || 'http://localhost:5003';
       
       const response = await fetch(`${backendUrl}/analyze/text`, {
         method: 'POST',
@@ -809,6 +810,26 @@ export default function MediBot() {
         >
           <RefreshCw className="w-6 h-6 group-hover:rotate-180 transition-transform duration-500" />
         </button>
+
+        {/* 3D Avatar Section */}
+        <div className="mt-6 w-full max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-xl border border-blue-100 overflow-hidden">
+            <div className="p-4 bg-gradient-to-r from-blue-600 to-cyan-600">
+              <h3 className="text-lg font-bold text-white text-center">MediBot Virtual Assistant</h3>
+            </div>
+            <div className="h-96 bg-gradient-to-br from-blue-50 to-cyan-100">
+              <Avatar3D isSpeaking={isSpeaking} />
+            </div>
+            {isSpeaking && (
+              <div className="p-3 bg-blue-50 border-t border-blue-100 text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-blue-600 font-medium">Avatar is speaking...</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Custom Styles */}
