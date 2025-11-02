@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, RefreshCw, Activity } from 'lucide-react';
+import { Send, RefreshCw, Activity, Upload, FileText, X } from 'lucide-react';
 
 // Types for message structure
 interface Message {
@@ -9,6 +9,10 @@ interface Message {
   text: string;
   sender: 'user' | 'bot';
   timestamp: Date;
+  file?: {
+    name: string;
+    summary?: string;
+  };
 }
 
 // Health tips data
@@ -30,6 +34,12 @@ export default function MediBot() {
   const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTip, setCurrentTip] = useState(HEALTH_TIPS[0]);
+  
+  // File upload state
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Refs
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -153,6 +163,130 @@ export default function MediBot() {
     }
   };
 
+  // Handle file upload and OCR analysis
+  const handleFileUpload = async (file: File) => {
+    if (!file) return;
+
+    // Validate file type
+    if (file.type !== 'application/pdf') {
+      setUploadError('Please upload a PDF file');
+      setTimeout(() => setUploadError(''), 3000);
+      return;
+    }
+
+    setIsAnalyzing(true);
+    setUploadError('');
+
+    // Add user message showing file upload
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: `Uploaded medical report: ${file.name}`,
+      sender: 'user',
+      timestamp: new Date(),
+      file: {
+        name: file.name,
+      },
+    };
+    setMessages((prev) => [...prev, userMessage]);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('http://localhost:5001/api/analyze', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Format OCR results as a bot message
+        let resultText = '📄 **Medical Report Analysis**\n\n';
+        
+        if (data.patientInfo) {
+          resultText += '👤 **Patient Information:**\n';
+          Object.entries(data.patientInfo).forEach(([key, value]) => {
+            if (value) resultText += `• ${key}: ${value}\n`;
+          });
+          resultText += '\n';
+        }
+
+        if (data.testResults && data.testResults.length > 0) {
+          resultText += '🔬 **Test Results:**\n';
+          data.testResults.forEach((test: any) => {
+            resultText += `\n**${test.testName}**\n`;
+            resultText += `• Value: ${test.value}\n`;
+            if (test.unit) resultText += `• Unit: ${test.unit}\n`;
+            if (test.referenceRange) resultText += `• Reference: ${test.referenceRange}\n`;
+            if (test.status) resultText += `• Status: ${test.status}\n`;
+          });
+          resultText += '\n';
+        }
+
+        if (data.summary) {
+          resultText += '📋 **Summary:**\n';
+          resultText += data.summary;
+        }
+
+        resultText += '\n\n⚠️ **Note:** This is an automated analysis. Please consult a healthcare professional for proper medical interpretation.';
+
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: resultText,
+          sender: 'bot',
+          timestamp: new Date(),
+          file: {
+            name: file.name,
+            summary: data.summary,
+          },
+        };
+
+        setMessages((prev) => [...prev, botMessage]);
+      } else {
+        throw new Error(data.error || 'Failed to analyze document');
+      }
+    } catch (error) {
+      console.error('Error analyzing file:', error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: '❌ Sorry, I encountered an error analyzing your medical report. Please make sure:\n\n• The file is a valid PDF\n• The PDF contains readable text or clear images\n• The backend server is running on port 5001\n\nPlease try again or consult a healthcare professional.',
+        sender: 'bot',
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsAnalyzing(false);
+      setUploadedFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  // Handle file input change
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setUploadedFile(file);
+      handleFileUpload(file);
+    }
+  };
+
+  // Handle file button click
+  const handleFileButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  // Handle removing selected file
+  const handleRemoveFile = () => {
+    setUploadedFile(null);
+    setUploadError('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   // Simulate bot response (replace with actual AI API integration)
   const getBotResponse = (userInput: string): string => {
     const input = userInput.toLowerCase();
@@ -250,7 +384,19 @@ export default function MediBot() {
                           : 'bg-white border-2 border-blue-100 text-gray-800 rounded-bl-none'
                       }`}
                     >
-                      <p className="text-sm sm:text-base leading-relaxed">{message.text}</p>
+                      {/* Show file icon for file uploads */}
+                      {message.file && (
+                        <div className={`flex items-center gap-2 mb-2 pb-2 border-b ${
+                          message.sender === 'user' ? 'border-blue-300' : 'border-blue-200'
+                        }`}>
+                          <FileText className={`w-4 h-4 ${message.sender === 'user' ? 'text-blue-100' : 'text-blue-600'}`} />
+                          <span className={`text-xs font-medium ${message.sender === 'user' ? 'text-blue-100' : 'text-blue-600'}`}>
+                            {message.file.name}
+                          </span>
+                        </div>
+                      )}
+                      
+                      <p className="text-sm sm:text-base leading-relaxed whitespace-pre-line">{message.text}</p>
                       <span
                         className={`text-xs mt-1 block ${
                           message.sender === 'user' ? 'text-blue-100' : 'text-gray-400'
@@ -274,6 +420,27 @@ export default function MediBot() {
 
               {/* Input Area */}
               <div className="border-t border-blue-100 p-4 bg-gradient-to-r from-blue-50 to-cyan-50">
+                {/* File upload error message */}
+                {uploadError && (
+                  <div className="mb-3 px-4 py-2 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+                    {uploadError}
+                  </div>
+                )}
+                
+                {/* Show selected file */}
+                {uploadedFile && !isAnalyzing && (
+                  <div className="mb-3 flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg">
+                    <FileText className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm text-blue-800 flex-1">{uploadedFile.name}</span>
+                    <button
+                      onClick={handleRemoveFile}
+                      className="text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+
                 <form 
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -293,14 +460,23 @@ export default function MediBot() {
                   }}
                   className="flex gap-3"
                 >
+                  {/* Hidden file input */}
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".pdf"
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                  
                   <input
                     ref={inputRef}
                     type="text"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Type your health question here..."
+                    placeholder="Type your health question or upload a PDF report..."
                     className="flex-1 px-5 py-3 rounded-xl border-2 border-blue-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-300 text-gray-800 placeholder-gray-400"
-                    disabled={isTyping}
+                    disabled={isTyping || isAnalyzing}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
@@ -308,9 +484,32 @@ export default function MediBot() {
                       }
                     }}
                   />
+                  
+                  {/* File Upload Button */}
+                  <button
+                    type="button"
+                    onClick={handleFileButtonClick}
+                    disabled={isTyping || isAnalyzing}
+                    className="px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 flex items-center gap-2"
+                    title="Upload PDF Report"
+                  >
+                    {isAnalyzing ? (
+                      <>
+                        <RefreshCw className="w-5 h-5 animate-spin" />
+                        <span className="hidden sm:inline">Analyzing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-5 h-5" />
+                        <span className="hidden sm:inline">Upload</span>
+                      </>
+                    )}
+                  </button>
+                  
+                  {/* Send Button */}
                   <button
                     type="submit"
-                    disabled={!inputText.trim() || isTyping}
+                    disabled={!inputText.trim() || isTyping || isAnalyzing}
                     className="px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 flex items-center gap-2"
                   >
                     <Send className="w-5 h-5" />
