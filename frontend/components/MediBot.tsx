@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, RefreshCw, Activity, Upload, FileText, X } from 'lucide-react';
+import { Send, RefreshCw, Activity, Upload, FileText, X, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
 
 // Types for message structure
 interface Message {
@@ -27,6 +27,21 @@ const HEALTH_TIPS = [
   "📱 Take regular breaks from screens to protect your eyes.",
 ];
 
+// Regional language options
+const LANGUAGES = [
+  { code: 'en-US', name: 'English', flag: '🇺🇸' },
+  { code: 'hi-IN', name: 'हिंदी (Hindi)', flag: '🇮🇳' },
+  { code: 'pa-IN', name: 'ਪੰਜਾਬੀ (Punjabi)', flag: '🇮🇳' },
+  { code: 'ur-PK', name: 'اردو (Urdu)', flag: '🇵🇰' },
+  { code: 'bn-IN', name: 'বাংলা (Bengali)', flag: '🇮🇳' },
+  { code: 'ta-IN', name: 'தமிழ் (Tamil)', flag: '🇮🇳' },
+  { code: 'te-IN', name: 'తెలుగు (Telugu)', flag: '🇮🇳' },
+  { code: 'mr-IN', name: 'मराठी (Marathi)', flag: '🇮🇳' },
+  { code: 'gu-IN', name: 'ગુજરાતી (Gujarati)', flag: '🇮🇳' },
+  { code: 'kn-IN', name: 'ಕನ್ನಡ (Kannada)', flag: '🇮🇳' },
+  { code: 'ml-IN', name: 'മലയാളം (Malayalam)', flag: '🇮🇳' },
+];
+
 export default function MediBot() {
   // State management
   const [messages, setMessages] = useState<Message[]>([]);
@@ -40,6 +55,15 @@ export default function MediBot() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // Voice assistant state
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en-US');
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const [voiceSupported, setVoiceSupported] = useState(false);
+  const recognitionRef = useRef<any>(null);
+  const synthRef = useRef<SpeechSynthesis | null>(null);
   
   // Refs
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -86,6 +110,112 @@ export default function MediBot() {
 
     return () => clearInterval(interval);
   }, []);
+
+  // Initialize voice recognition and synthesis
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Check for speech recognition support
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      
+      if (SpeechRecognition) {
+        setVoiceSupported(true);
+        recognitionRef.current = new SpeechRecognition();
+        recognitionRef.current.continuous = false;
+        recognitionRef.current.interimResults = false;
+        recognitionRef.current.lang = selectedLanguage;
+
+        recognitionRef.current.onresult = (event: any) => {
+          const transcript = event.results[0][0].transcript;
+          setInputText(transcript);
+          setIsListening(false);
+        };
+
+        recognitionRef.current.onerror = (event: any) => {
+          console.error('Speech recognition error:', event.error);
+          setIsListening(false);
+        };
+
+        recognitionRef.current.onend = () => {
+          setIsListening(false);
+        };
+      }
+
+      // Check for speech synthesis support
+      if ('speechSynthesis' in window) {
+        synthRef.current = window.speechSynthesis;
+      }
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      if (synthRef.current) {
+        synthRef.current.cancel();
+      }
+    };
+  }, []);
+
+  // Update recognition language when selected language changes
+  useEffect(() => {
+    if (recognitionRef.current) {
+      recognitionRef.current.lang = selectedLanguage;
+    }
+  }, [selectedLanguage]);
+
+  // Voice Recognition handlers
+  const startListening = () => {
+    if (recognitionRef.current && !isListening) {
+      try {
+        recognitionRef.current.start();
+        setIsListening(true);
+      } catch (error) {
+        console.error('Error starting speech recognition:', error);
+      }
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    }
+  };
+
+  // Text-to-Speech handler
+  const speakText = (text: string) => {
+    if (synthRef.current && !isSpeaking) {
+      // Cancel any ongoing speech
+      synthRef.current.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = selectedLanguage;
+      utterance.rate = 0.9;
+      utterance.pitch = 1.0;
+      
+      // Get voices and try to match the selected language
+      const voices = synthRef.current.getVoices();
+      const voice = voices.find(v => v.lang.startsWith(selectedLanguage.split('-')[0])) || 
+                    voices.find(v => v.lang === selectedLanguage);
+      
+      if (voice) {
+        utterance.voice = voice;
+      }
+
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+
+      synthRef.current.speak(utterance);
+    }
+  };
+
+  const stopSpeaking = () => {
+    if (synthRef.current) {
+      synthRef.current.cancel();
+      setIsSpeaking(false);
+    }
+  };
 
   // Handle sending messages
   const handleSendMessage = async () => {
@@ -134,6 +264,11 @@ export default function MediBot() {
         };
 
         setMessages((prev) => [...prev, botMessage]);
+        
+        // Speak the bot's response if voice is enabled
+        if (voiceSupported && botMessage.text) {
+          speakText(botMessage.text);
+        }
       } else {
         // Fallback to local response if API fails
         const botMessage: Message = {
@@ -144,6 +279,11 @@ export default function MediBot() {
         };
 
         setMessages((prev) => [...prev, botMessage]);
+        
+        // Speak the bot's response if voice is enabled
+        if (voiceSupported && botMessage.text) {
+          speakText(botMessage.text);
+        }
       }
     } catch (error) {
       console.error('Error calling n8n workflow:', error);
@@ -156,6 +296,11 @@ export default function MediBot() {
       };
 
       setMessages((prev) => [...prev, botMessage]);
+      
+      // Speak the bot's response if voice is enabled
+      if (voiceSupported && botMessage.text) {
+        speakText(botMessage.text);
+      }
     } finally {
       setIsTyping(false);
       // Restore scroll position
@@ -420,6 +565,98 @@ export default function MediBot() {
 
               {/* Input Area */}
               <div className="border-t border-blue-100 p-4 bg-gradient-to-r from-blue-50 to-cyan-50">
+                {/* Voice and language controls */}
+                {voiceSupported && (
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      {/* Microphone button */}
+                      <button
+                        type="button"
+                        onClick={isListening ? stopListening : startListening}
+                        disabled={isTyping || isAnalyzing}
+                        className={`px-4 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 flex items-center gap-2 ${
+                          isListening 
+                            ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white animate-pulse' 
+                            : 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white'
+                        }`}
+                        title={isListening ? 'Stop Listening' : 'Start Voice Input'}
+                      >
+                        {isListening ? (
+                          <>
+                            <MicOff className="w-4 h-4" />
+                            <span className="text-xs">Listening...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Mic className="w-4 h-4" />
+                            <span className="text-xs hidden sm:inline">Voice</span>
+                          </>
+                        )}
+                      </button>
+
+                      {/* Speaker button */}
+                      <button
+                        type="button"
+                        onClick={isSpeaking ? stopSpeaking : () => {}}
+                        disabled={!isSpeaking}
+                        className={`px-4 py-2 rounded-xl font-semibold shadow-lg transition-all duration-300 flex items-center gap-2 ${
+                          isSpeaking 
+                            ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:shadow-xl hover:scale-105 cursor-pointer' 
+                            : 'bg-gray-300 text-gray-500 opacity-50 cursor-not-allowed'
+                        }`}
+                        title={isSpeaking ? 'Stop Speaking' : 'Bot will speak responses'}
+                      >
+                        {isSpeaking ? (
+                          <>
+                            <VolumeX className="w-4 h-4" />
+                            <span className="text-xs hidden sm:inline">Stop</span>
+                          </>
+                        ) : (
+                          <>
+                            <Volume2 className="w-4 h-4" />
+                            <span className="text-xs hidden sm:inline">Speaker</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Language selector */}
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+                        className="px-3 py-2 bg-white border-2 border-blue-200 rounded-xl text-sm font-medium text-gray-700 hover:border-blue-400 transition-all duration-300 flex items-center gap-2"
+                        title="Select Language"
+                      >
+                        <span>{LANGUAGES.find(l => l.code === selectedLanguage)?.flag}</span>
+                        <span className="hidden sm:inline">{LANGUAGES.find(l => l.code === selectedLanguage)?.name.split(' ')[0]}</span>
+                      </button>
+
+                      {/* Language dropdown */}
+                      {showLanguageMenu && (
+                        <div className="absolute bottom-full right-0 mb-2 w-64 max-h-80 overflow-y-auto bg-white border-2 border-blue-200 rounded-xl shadow-2xl z-50">
+                          {LANGUAGES.map((lang) => (
+                            <button
+                              key={lang.code}
+                              type="button"
+                              onClick={() => {
+                                setSelectedLanguage(lang.code);
+                                setShowLanguageMenu(false);
+                              }}
+                              className={`w-full px-4 py-3 text-left hover:bg-blue-50 transition-colors flex items-center gap-3 ${
+                                selectedLanguage === lang.code ? 'bg-blue-100 font-semibold' : ''
+                              }`}
+                            >
+                              <span className="text-xl">{lang.flag}</span>
+                              <span className="text-sm">{lang.name}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+                
                 {/* File upload error message */}
                 {uploadError && (
                   <div className="mb-3 px-4 py-2 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
@@ -474,9 +711,9 @@ export default function MediBot() {
                     type="text"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Type your health question or upload a PDF report..."
+                    placeholder={voiceSupported ? "Type or speak your health question..." : "Type your health question or upload a PDF report..."}
                     className="flex-1 px-5 py-3 rounded-xl border-2 border-blue-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-300 text-gray-800 placeholder-gray-400"
-                    disabled={isTyping || isAnalyzing}
+                    disabled={isTyping || isAnalyzing || isListening}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
@@ -547,6 +784,12 @@ export default function MediBot() {
                   <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style={{ animationDelay: '1000ms' }} />
                   <span>Instant Responses</span>
                 </div>
+                {voiceSupported && (
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" style={{ animationDelay: '1500ms' }} />
+                    <span>🎤 Voice Assistant ({LANGUAGES.find(l => l.code === selectedLanguage)?.name.split(' ')[0]})</span>
+                  </div>
+                )}
               </div>
 
               <div className="mt-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl">
