@@ -1,6 +1,6 @@
 {
-  "/mental-health/page": "app/mental-health/page.js",
   "/page": "app/page.js",
+  "/hero/page": "app/hero/page.js",
   "/health-check/page": "app/health-check/page.js",
-  "/hero/page": "app/hero/page.js"
+  "/mental-health/page": "app/mental-health/page.js"
 }
