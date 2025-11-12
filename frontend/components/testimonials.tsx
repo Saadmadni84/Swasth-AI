@@ -42,17 +42,17 @@ export default function Testimonials() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 border border-purple-200 text-sm font-medium text-purple-700 mb-4">
             <Star className="w-4 h-4 fill-current" />
             <span>Testimonials</span>
           </div>
-          <h2 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
+          <h2 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight text-gray-900">
             What Healthcare{" "}
-            <span className="bg-gradient-to-r from-primary via-blue-500 to-accent bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
               Professionals Say
             </span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
             Trusted by leading medical institutions worldwide
           </p>
         </motion.div>
@@ -68,21 +68,21 @@ export default function Testimonials() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
             >
-              <div className="relative h-full rounded-2xl border-2 border-border/50 bg-card p-8 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
+              <div className="relative h-full rounded-2xl border-2 border-gray-200 bg-white/80 backdrop-blur-sm p-8 hover:border-blue-400 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10">
                 {/* Quote Icon */}
                 <div className="absolute top-6 right-6 opacity-10">
-                  <Quote className="w-16 h-16 text-primary" />
+                  <Quote className="w-16 h-16 text-blue-600" />
                 </div>
 
                 {/* Rating */}
                 <div className="flex gap-1 mb-6">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                    <Star key={i} className="w-5 h-5 fill-blue-500 text-blue-500" />
                   ))}
                 </div>
 
                 {/* Content */}
-                <p className="text-muted-foreground leading-relaxed mb-8 relative z-10 italic">
+                <p className="text-gray-700 leading-relaxed mb-8 relative z-10 italic">
                   "{testimonial.content}"
                 </p>
 
@@ -94,8 +94,8 @@ export default function Testimonials() {
                     </span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg">{testimonial.name}</h4>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    <h4 className="font-bold text-lg text-gray-900">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-600">{testimonial.role}</p>
                   </div>
                 </div>
 
@@ -114,7 +114,7 @@ export default function Testimonials() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <p className="text-muted-foreground mb-6">Trusted by healthcare professionals at:</p>
+          <p className="text-gray-700 mb-6">Trusted by healthcare professionals at:</p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
             {[
               "Metro General Hospital",
@@ -122,7 +122,7 @@ export default function Testimonials() {
               "Healthcare Innovation Institute",
               "Rural Health Foundation"
             ].map((org, index) => (
-              <div key={org} className="text-foreground/60 font-semibold text-sm md:text-base hover:text-foreground transition-colors">
+              <div key={org} className="text-gray-700 font-semibold text-sm md:text-base hover:text-gray-900 transition-colors">
                 {org}
               </div>
             ))}

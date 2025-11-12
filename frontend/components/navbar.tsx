@@ -72,126 +72,84 @@ const Navbar = () => {
     }
   ];
 
-  const LinkComponent = ({ href, children, className, isActive }) => (
-    <Link
-      href={href}
-      className={`group relative px-6 py-3 rounded-2xl text-sm font-semibold transition-all duration-500 transform hover:scale-105 ${
-        isActive
-          ? 'bg-gradient-to-r from-cyan-500/90 via-blue-500/90 to-indigo-600/90 text-white shadow-2xl shadow-blue-500/40 backdrop-blur-sm border border-white/20'
-          : 'text-white/80 hover:text-white hover:bg-white/10 hover:backdrop-blur-sm hover:border hover:border-white/20 hover:shadow-xl hover:shadow-blue-500/20'
-      } ${className}`}
-    >
-      {children}
-      
-      {/* Active indicator */}
-      {isActive && (
-        <>
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 rounded-2xl animate-pulse opacity-30" />
-          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-cyan-400 rounded-full animate-bounce" />
-        </>
-      )}
-      
-      {/* Hover glow effect */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-indigo-600/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-all duration-300" />
-    </Link>
-  );
-
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f172a] border-b-2 border-slate-700 shadow-2xl shadow-black/30">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full blur-3xl" />
-          <div className="absolute -top-40 -left-32 w-80 h-80 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 rounded-full blur-3xl" />
-        </div>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link href="/hero" className="flex items-center space-x-3 group relative">
+            <Link href="/hero" className="flex items-center space-x-3 group">
               <div className="relative">
-                {/* SwasthAI Logo Component */}
-                <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl shadow-blue-500/30 group-hover:shadow-blue-500/50 overflow-hidden">
+                {/* SwasthAI Logo */}
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-purple-500 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-all duration-300 shadow-sm">
                   <SwasthAILogo 
                     variant="heart" 
-                    size="md" 
+                    size="sm" 
                     className="scale-75" 
                   />
-                </div>
-                
-                {/* Glowing border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 rounded-2xl opacity-0 group-hover:opacity-70 blur-lg transition-all duration-500" />
-                
-                {/* Animated particles */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute -top-2 -right-2 w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
-                  <div className="absolute -bottom-2 -left-2 w-2 h-2 bg-blue-500 rounded-full animate-ping" style={{ animationDelay: '0.5s' }} />
                 </div>
               </div>
               
               <div className="flex flex-col">
-                <span className="font-bold text-2xl bg-gradient-to-r from-white via-cyan-200 to-blue-200 bg-clip-text text-transparent group-hover:from-cyan-300 group-hover:via-blue-300 group-hover:to-indigo-300 transition-all duration-500">
+                <span className="font-bold text-xl text-purple-700 group-hover:text-purple-600 transition-colors">
                   SwasthAI
                 </span>
-                <span className="text-xs text-blue-200/70 font-medium tracking-wider uppercase">
-                  Healthcare AI
-                </span>
               </div>
-              
-              {/* Hover effect background */}
-              <div className="absolute -inset-4 bg-white/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-2">
+            <div className="hidden lg:flex items-center space-x-1">
               {navLinks.map((link) => (
-                <LinkComponent
+                <Link
                   key={link.href}
                   href={link.href}
-                  isActive={link.isActive}
-                  className="flex items-center space-x-2"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    link.isActive
+                      ? 'text-purple-700 bg-purple-50'
+                      : 'text-gray-700 hover:text-purple-700 hover:bg-gray-50'
+                  }`}
                 >
-                  <span>{link.label}</span>
-                </LinkComponent>
+                  {link.label}
+                </Link>
               ))}
             </div>
 
-            {/* User Menu */}
-            <div className="hidden lg:flex items-center space-x-3">
+            {/* Right Side - Book Demo Button */}
+            <div className="hidden lg:flex items-center space-x-4">
               {user ? (
                 <div className="flex items-center space-x-3">
-                  <LinkComponent
-                    href="/dashboard"
-                    isActive={pathname === '/dashboard'}
-                    className="flex items-center space-x-2"
-                  >
-                    <span>Dashboard</span>
-                  </LinkComponent>
-                  <div className="flex items-center space-x-2 px-3 py-2 bg-slate-800/60 rounded-lg border border-slate-700/50">
-                    <div className="w-6 h-6 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                  <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-500 rounded-full flex items-center justify-center">
                       <span className="text-white text-xs font-bold">
                         {user.email?.[0]?.toUpperCase() || 'U'}
                       </span>
                     </div>
-                    <span className="text-sm font-medium text-slate-300">
+                    <span className="text-sm font-medium text-gray-700">
                       {user.email?.split('@')[0] || 'User'}
                     </span>
                   </div>
                   <button
                     onClick={handleSignOut}
-                    className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg font-medium hover:bg-red-500/30 hover:text-red-300 transition-colors duration-200 flex items-center space-x-2 border border-red-500/30"
+                    className="text-sm font-medium text-gray-700 hover:text-purple-700 transition-colors"
                   >
-                    <span>Sign Out</span>
+                    Logout
                   </button>
                 </div>
               ) : (
-                <div className="flex items-center space-x-3">
-                  <LinkComponent href="/auth/login" isActive={false} className="flex items-center space-x-2">
-                    <span>Login</span>
-                  </LinkComponent>
+                <div className="flex items-center space-x-4">
+                  <Link
+                    href="/auth/login"
+                    className="text-sm font-medium text-gray-700 hover:text-purple-700 transition-colors"
+                  >
+                    Login
+                  </Link>
                   <Link
                     href="/auth/signup"
-                    className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg shadow-blue-500/25 flex items-center space-x-2"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-500 transition-all duration-200 shadow-sm hover:shadow-md"
                   >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
                     <span>Sign Up</span>
                   </Link>
                 </div>
@@ -201,18 +159,18 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-slate-800/60 hover:bg-slate-700/60 transition-colors duration-200 border border-slate-700/50"
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
               aria-label="Toggle menu"
             >
-              <div className="w-5 h-5 relative">
-                <div className={`absolute w-full h-0.5 bg-slate-300 transition-all duration-300 ${
-                  isMenuOpen ? 'top-2 rotate-45' : 'top-1'
+              <div className="w-6 h-6 relative">
+                <div className={`absolute w-full h-0.5 bg-gray-700 transition-all duration-300 ${
+                  isMenuOpen ? 'top-2.5 rotate-45' : 'top-1'
                 }`} />
-                <div className={`absolute top-2 w-full h-0.5 bg-slate-300 transition-all duration-300 ${
+                <div className={`absolute top-2.5 w-full h-0.5 bg-gray-700 transition-all duration-300 ${
                   isMenuOpen ? 'opacity-0' : 'opacity-100'
                 }`} />
-                <div className={`absolute w-full h-0.5 bg-slate-300 transition-all duration-300 ${
-                  isMenuOpen ? 'top-2 -rotate-45' : 'top-3'
+                <div className={`absolute w-full h-0.5 bg-gray-700 transition-all duration-300 ${
+                  isMenuOpen ? 'top-2.5 -rotate-45' : 'top-4'
                 }`} />
               </div>
             </button>
@@ -223,46 +181,40 @@ const Navbar = () => {
         <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
           isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
-          <div className="px-4 py-4 bg-[#0f172a] backdrop-blur-md border-t-2 border-slate-700 space-y-2">
+          <div className="px-4 py-4 bg-white border-t border-gray-200/50 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                className={`block px-4 py-3 rounded-lg transition-all duration-200 ${
                   link.isActive
-                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
-                    : 'text-slate-300 hover:bg-slate-800/50 hover:text-blue-400'
+                    ? 'bg-purple-50 text-purple-700 font-medium'
+                    : 'text-gray-700 hover:bg-gray-50'
                 }`}
               >
-                <span className="font-medium">{link.label}</span>
+                {link.label}
               </Link>
             ))}
             
-            <div className="border-t border-slate-700/50 pt-4 mt-4">
+            <div className="border-t border-gray-200/50 pt-4 mt-4">
               {user ? (
                 <div className="space-y-2">
-                  <div className="flex items-center space-x-3 px-4 py-2 bg-slate-800/60 rounded-lg border border-slate-700/50">
-                    <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                  <div className="flex items-center space-x-3 px-4 py-2 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-500 rounded-full flex items-center justify-center">
                       <span className="text-white text-sm font-bold">
                         {user.email?.[0]?.toUpperCase() || 'U'}
                       </span>
                     </div>
                     <div>
-                      <p className="font-medium text-slate-200">
+                      <p className="font-medium text-gray-900">
                         {user.email?.split('@')[0] || 'User'}
                       </p>
-                      <p className="text-sm text-slate-400">{user.email}</p>
+                      <p className="text-sm text-gray-500">{user.email}</p>
                     </div>
                   </div>
-                  <Link
-                    href="/dashboard"
-                    className="flex items-center space-x-3 px-4 py-3 text-slate-300 hover:bg-slate-800/50 hover:text-blue-400 rounded-lg transition-colors"
-                  >
-                    <span className="font-medium">Dashboard</span>
-                  </Link>
                   <button
                     onClick={handleSignOut}
-                    className="w-full flex items-center space-x-3 px-4 py-3 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors"
+                    className="w-full flex items-center px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
                     <span className="font-medium">Sign Out</span>
                   </button>
@@ -271,14 +223,17 @@ const Navbar = () => {
                 <div className="space-y-2">
                   <Link
                     href="/auth/login"
-                    className="flex items-center space-x-3 px-4 py-3 text-slate-300 hover:bg-slate-800/50 hover:text-blue-400 rounded-lg transition-colors"
+                    className="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors text-center font-medium"
                   >
-                    <span className="font-medium">Login</span>
+                    Login
                   </Link>
                   <Link
                     href="/auth/signup"
-                    className="flex items-center space-x-3 px-4 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg font-medium shadow-lg"
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-full font-semibold shadow-sm"
                   >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
                     <span>Sign Up</span>
                   </Link>
                 </div>

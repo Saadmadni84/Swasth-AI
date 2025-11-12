@@ -1,8 +1,4 @@
 
-> dev
-> npm --prefix frontend run dev
-
-
 > swasthai@0.1.0 dev
 > next dev
 
@@ -20,4 +16,62 @@
    - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1929ms
+ ✓ Ready in 2.4s
+ ○ Compiling /hero ...
+ ✓ Compiled /hero in 2.3s (1673 modules)
+ GET /hero 200 in 2741ms
+ ✓ Compiled in 448ms (762 modules)
+ ✓ Compiled in 578ms (1673 modules)
+ GET /hero 200 in 76ms
+ ✓ Compiled in 392ms (1673 modules)
+ GET /hero 200 in 48ms
+ ✓ Compiled in 332ms (1673 modules)
+ GET /hero 200 in 45ms
+ ✓ Compiled in 320ms (1673 modules)
+ GET /hero 200 in 46ms
+ GET /hero 200 in 109ms
+ ✓ Compiled in 427ms (1673 modules)
+ GET /hero 200 in 45ms
+ ✓ Compiled in 498ms (1673 modules)
+ GET /hero 200 in 42ms
+ GET /hero 200 in 124ms
+ ✓ Compiled in 534ms (1673 modules)
+ GET /hero 200 in 57ms
+ ✓ Compiled in 340ms (1673 modules)
+ GET /hero 200 in 56ms
+ ✓ Compiled in 581ms (1673 modules)
+ GET /hero 200 in 80ms
+ ✓ Compiled in 585ms (1673 modules)
+ GET /hero 200 in 53ms
+ GET /hero 200 in 154ms
+ ✓ Compiled in 1045ms (1673 modules)
+ GET /hero 200 in 113ms
+ ✓ Compiled in 393ms (1673 modules)
+ GET /hero 200 in 74ms
+ ✓ Compiled in 585ms (1673 modules)
+ GET /hero 200 in 59ms
+ ○ Compiling /health-check ...
+ ✓ Compiled /health-check in 2.7s (1726 modules)
+ GET /health-check 200 in 2908ms
+ GET /health-check 200 in 50ms
+ ○ Compiling /mental-health ...
+ ✓ Compiled /simple-profile in 6.7s (3137 modules)
+ GET /test-ai 200 in 4287ms
+ GET /find-doctor 200 in 5229ms
+ GET /simple-profile 200 in 2734ms
+ GET /mental-health 200 in 6939ms
+ GET /health-check 200 in 244ms
+ GET /3d-lab 200 in 6161ms
+ GET /find-doctor 200 in 54ms
+ GET /health-check 200 in 53ms
+ GET /test-ai 200 in 55ms
+ GET /simple-profile 200 in 56ms
+ GET /mental-health 200 in 55ms
+ GET /hero 200 in 70ms
+ GET /health-check 200 in 36ms
+ GET /mental-health 200 in 38ms
+ GET /3d-lab 200 in 38ms
+ GET /hero 200 in 48ms
+ GET /hero 200 in 147ms
+ GET /hero 200 in 79ms
+[?25h

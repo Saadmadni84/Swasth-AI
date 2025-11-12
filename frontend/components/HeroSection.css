@@ -1,0 +1,407 @@
+/**
+ * SwasthAI Hero Section Styles
+ * 
+ * Theme Support: Light & Dark modes via CSS variables
+ * Layout: Mobile-first responsive design
+ * Breakpoint: 768px for desktop
+ */
+
+/* ===================================
+   THEME VARIABLES
+   =================================== */
+
+/* Light Theme (Default) */
+[data-theme="light"] {
+  --hero-bg: #FFFFFF;
+  --hero-text-primary: #1A1A1A;
+  --hero-text-secondary: #4A5568;
+  --hero-accent: #0066FF;
+  --hero-accent-hover: #0052CC;
+  --hero-accent-light: rgba(0, 102, 255, 0.1);
+  --hero-border: #E2E8F0;
+  --hero-card-bg: #F8F9FA;
+  --hero-icon-color: #0066FF;
+  --hero-shadow: rgba(0, 0, 0, 0.08);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --hero-bg: #0F1A2B;
+  --hero-text-primary: #EAEAEA;
+  --hero-text-secondary: #A0AEC0;
+  --hero-accent: #0066FF;
+  --hero-accent-hover: #3385FF;
+  --hero-accent-light: rgba(0, 102, 255, 0.15);
+  --hero-border: #2D3748;
+  --hero-card-bg: #1B2433;
+  --hero-icon-color: #3385FF;
+  --hero-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* ===================================
+   HERO SECTION LAYOUT
+   =================================== */
+
+.hero-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--hero-bg);
+  color: var(--hero-text-primary);
+  padding: 80px 20px 60px;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Desktop 2-column layout */
+@media (min-width: 768px) {
+  .hero-section {
+    padding: 120px 40px 80px;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+}
+
+/* ===================================
+   CONTENT COLUMN (LEFT)
+   =================================== */
+
+.hero-content {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-mounted .hero-content {
+  animation-delay: 0.1s;
+}
+
+/* Badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--hero-accent-light);
+  color: var(--hero-accent);
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  letter-spacing: 0.2px;
+}
+
+.badge-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--hero-accent);
+}
+
+/* Heading */
+.hero-heading {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hero-text-primary);
+  margin: 0 0 24px 0;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .hero-heading {
+    font-size: 64px;
+  }
+}
+
+/* Subtext */
+.hero-subtext {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--hero-text-secondary);
+  margin: 0 0 40px 0;
+  max-width: 540px;
+}
+
+@media (min-width: 768px) {
+  .hero-subtext {
+    font-size: 20px;
+    line-height: 1.7;
+  }
+}
+
+/* ===================================
+   CTA BUTTONS
+   =================================== */
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+}
+
+/* Primary Button */
+.hero-btn-primary {
+  background: var(--hero-accent);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px var(--hero-shadow);
+}
+
+.hero-btn-primary:hover {
+  background: var(--hero-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--hero-shadow);
+}
+
+.hero-btn-primary:focus {
+  outline: 3px solid var(--hero-accent-light);
+  outline-offset: 2px;
+}
+
+.hero-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+.hero-btn-secondary {
+  background: transparent;
+  color: var(--hero-text-primary);
+  border: 2px solid var(--hero-border);
+}
+
+.hero-btn-secondary:hover {
+  border-color: var(--hero-accent);
+  color: var(--hero-accent);
+  transform: translateY(-2px);
+}
+
+.hero-btn-secondary:focus {
+  outline: 3px solid var(--hero-accent-light);
+  outline-offset: 2px;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.hero-btn-primary:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+/* ===================================
+   STATS ROW
+   =================================== */
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding-top: 32px;
+  border-top: 1px solid var(--hero-border);
+}
+
+@media (min-width: 768px) {
+  .hero-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--hero-icon-color);
+  flex-shrink: 0;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--hero-text-primary);
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--hero-text-secondary);
+  line-height: 1.4;
+}
+
+/* ===================================
+   VISUAL COLUMN (RIGHT)
+   =================================== */
+
+.hero-visual {
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards 0.3s;
+}
+
+.visual-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Icon Grid */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.icon-card {
+  background: var(--hero-card-bg);
+  border: 1px solid var(--hero-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.icon-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px var(--hero-shadow);
+  border-color: var(--hero-accent);
+}
+
+.icon-card svg {
+  color: var(--hero-icon-color);
+  transition: transform 0.3s ease;
+}
+
+.icon-card:hover svg {
+  transform: scale(1.1);
+}
+
+/* Connection Lines SVG */
+.connection-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  color: var(--hero-icon-color);
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 0.8s;
+}
+
+/* ===================================
+   ANIMATIONS
+   =================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===================================
+   ACCESSIBILITY
+   =================================== */
+
+/* Focus visible for keyboard navigation */
+.hero-btn:focus-visible {
+  outline: 3px solid var(--hero-accent);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .hero-content,
+  .hero-visual,
+  .icon-card,
+  .connection-lines {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-btn,
+  .icon-card {
+    transition: none;
+  }
+
+  .connection-lines animate {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .hero-btn-primary {
+    border: 2px solid currentColor;
+  }
+
+  .icon-card {
+    border-width: 2px;
+  }
+}

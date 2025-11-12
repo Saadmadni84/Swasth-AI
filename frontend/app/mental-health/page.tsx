@@ -77,7 +77,7 @@ export default function MentalHealthDashboard() {
       setError(null);
     } catch (err) {
       console.error('Error fetching smartwatch data:', err);
-      setError('Failed to connect to smartwatch API. Make sure backend is running on port 5001.');
+      setError('Failed to connect to smartwatch API. Make sure backend is running on port 5002.');
     } finally {
       setLoading(false);
     }
@@ -184,11 +184,11 @@ export default function MentalHealthDashboard() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen bg-gradient-to-br from-[#003049] via-[#003049] to-[#002035] flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-br from-[#fdfbf7] via-[#f5f0ff] to-[#fdfbf7] flex items-center justify-center">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-            className="w-16 h-16 border-4 border-[#669bbc] border-t-transparent rounded-full"
+            className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full"
           />
         </div>
       </>
@@ -199,16 +199,16 @@ export default function MentalHealthDashboard() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen bg-gradient-to-br from-[#003049] via-[#003049] to-[#002035] flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-[#fdfbf7] via-[#f5f0ff] to-[#fdfbf7] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-gradient-to-br from-red-500/10 to-rose-500/10 border border-red-500/30 rounded-2xl p-8 max-w-md text-center"
+            className="bg-white/80 backdrop-blur-sm border border-red-300 rounded-2xl p-8 max-w-md text-center shadow-lg"
           >
-            <p className="text-red-400 text-lg mb-4">{error}</p>
+            <p className="text-red-600 text-lg mb-4">{error}</p>
             <button
               onClick={fetchData}
-              className="px-6 py-3 bg-gradient-to-r from-[#669bbc] to-[#003049] text-white rounded-xl font-semibold hover:scale-105 transition-transform"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-md"
             >
               Retry Connection
             </button>
@@ -223,24 +223,24 @@ export default function MentalHealthDashboard() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-[#003049] via-[#003049] to-[#002035] pt-8 pb-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gradient-to-br from-[#fdfbf7] via-[#f5f0ff] to-[#fdfbf7] pt-8 pb-12 px-4 sm:px-6 lg:px-8">
         {/* Animated background elements */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
           <motion.div
             animate={{
               scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3]
+              opacity: [0.2, 0.3, 0.2]
             }}
             transition={{ duration: 8, repeat: Infinity }}
-            className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-r from-[#669bbc]/20 to-[#003049]/20 rounded-full blur-3xl"
+            className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-r from-purple-300/20 to-purple-200/15 rounded-full blur-3xl"
           />
           <motion.div
             animate={{
               scale: [1, 1.3, 1],
-              opacity: [0.3, 0.5, 0.3]
+              opacity: [0.2, 0.3, 0.2]
             }}
             transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-            className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-r from-[#780000]/20 to-[#c1121f]/20 rounded-full blur-3xl"
+            className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-r from-purple-400/15 to-purple-300/10 rounded-full blur-3xl"
           />
         </div>
 
@@ -256,19 +256,19 @@ export default function MentalHealthDashboard() {
                 animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <Brain className="w-12 h-12 text-[#669bbc]" />
+                <Brain className="w-12 h-12 text-purple-600" />
               </motion.div>
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-[#fdf0d5] via-[#669bbc] to-[#fdf0d5] bg-clip-text text-transparent">
+              <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-purple-600 to-gray-900 bg-clip-text text-transparent">
                 Mental Health Dashboard
               </h1>
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 1 }}
               >
-                <Sparkles className="w-12 h-12 text-[#669bbc]" />
+                <Sparkles className="w-12 h-12 text-purple-600" />
               </motion.div>
             </div>
-            <p className="text-[#669bbc] text-lg">Real-time smartwatch monitoring for your mental wellness</p>
+            <p className="text-gray-700 text-lg">Real-time smartwatch monitoring for your mental wellness</p>
           </motion.div>
 
           {/* Stats Cards Grid */}
@@ -281,22 +281,22 @@ export default function MentalHealthDashboard() {
               whileHover={{ y: -5, scale: 1.02 }}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-pink-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-              <div className="relative bg-gradient-to-br from-[#003049]/90 to-[#002035]/90 backdrop-blur-sm border border-[#669bbc]/20 rounded-2xl p-6 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
+              <div className="relative bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 overflow-hidden shadow-sm hover:shadow-md transition-all">
                 <div className="flex items-center justify-between mb-4">
-                  <Heart className="w-10 h-10 text-red-400" />
+                  <Heart className="w-10 h-10 text-red-500" />
                   <motion.div
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 1, repeat: Infinity }}
-                    className="w-3 h-3 bg-red-400 rounded-full"
+                    className="w-3 h-3 bg-red-500 rounded-full"
                   />
                 </div>
-                <h3 className="text-[#fdf0d5] text-sm font-medium mb-2">Heart Rate</h3>
-                <p className="text-4xl font-bold text-red-400 mb-1">
+                <h3 className="text-gray-700 text-sm font-medium mb-2">Heart Rate</h3>
+                <p className="text-4xl font-bold text-red-500 mb-1">
                   {latestReading?.heartRate || 0}
                 </p>
-                <p className="text-xs text-[#669bbc]">bpm</p>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-500/10 to-transparent rounded-full blur-2xl" />
+                <p className="text-xs text-gray-600">bpm</p>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-500/5 to-transparent rounded-full blur-2xl" />
               </div>
             </motion.div>
 
@@ -308,27 +308,27 @@ export default function MentalHealthDashboard() {
               whileHover={{ y: -5, scale: 1.02 }}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-              <div className="relative bg-gradient-to-br from-[#003049]/90 to-[#002035]/90 backdrop-blur-sm border border-[#669bbc]/20 rounded-2xl p-6 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-yellow-500/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
+              <div className="relative bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 overflow-hidden shadow-sm hover:shadow-md transition-all">
                 <div className="flex items-center justify-between mb-4">
-                  <Activity className="w-10 h-10 text-orange-400" />
+                  <Activity className="w-10 h-10 text-orange-500" />
                   <div className="flex gap-1">
                     {[...Array(10)].map((_, i) => (
                       <div
                         key={i}
                         className={`w-1 h-6 rounded-full transition-all duration-300 ${
-                          i < (latestReading?.stressLevel || 0) ? 'bg-orange-400' : 'bg-gray-600'
+                          i < (latestReading?.stressLevel || 0) ? 'bg-orange-500' : 'bg-gray-300'
                         }`}
                       />
                     ))}
                   </div>
                 </div>
-                <h3 className="text-[#fdf0d5] text-sm font-medium mb-2">Stress Level</h3>
-                <p className="text-4xl font-bold text-orange-400 mb-1">
+                <h3 className="text-gray-700 text-sm font-medium mb-2">Stress Level</h3>
+                <p className="text-4xl font-bold text-orange-500 mb-1">
                   {latestReading?.stressLevel || 0}/10
                 </p>
-                <p className="text-xs text-[#669bbc]">Current stress index</p>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-2xl" />
+                <p className="text-xs text-gray-600">Current stress index</p>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/5 to-transparent rounded-full blur-2xl" />
               </div>
             </motion.div>
 
@@ -340,22 +340,22 @@ export default function MentalHealthDashboard() {
               whileHover={{ y: -5, scale: 1.02 }}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-              <div className="relative bg-gradient-to-br from-[#003049]/90 to-[#002035]/90 backdrop-blur-sm border border-[#669bbc]/20 rounded-2xl p-6 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
+              <div className="relative bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 overflow-hidden shadow-sm hover:shadow-md transition-all">
                 <div className="flex items-center justify-between mb-4">
-                  <Moon className="w-10 h-10 text-indigo-400" />
+                  <Moon className="w-10 h-10 text-indigo-500" />
                   <motion.div
                     animate={{ rotate: [0, 360] }}
                     transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                    className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full"
+                    className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full"
                   />
                 </div>
-                <h3 className="text-[#fdf0d5] text-sm font-medium mb-2">Sleep</h3>
-                <p className="text-4xl font-bold text-indigo-400 mb-1">
+                <h3 className="text-gray-700 text-sm font-medium mb-2">Sleep</h3>
+                <p className="text-4xl font-bold text-indigo-500 mb-1">
                   {latestReading?.sleepHours.toFixed(1) || 0}
                 </p>
-                <p className="text-xs text-[#669bbc]">hours last night</p>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-500/10 to-transparent rounded-full blur-2xl" />
+                <p className="text-xs text-gray-600">hours last night</p>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-500/5 to-transparent rounded-full blur-2xl" />
               </div>
             </motion.div>
 
@@ -367,23 +367,23 @@ export default function MentalHealthDashboard() {
               whileHover={{ y: -5, scale: 1.02 }}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-              <div className="relative bg-gradient-to-br from-[#003049]/90 to-[#002035]/90 backdrop-blur-sm border border-[#669bbc]/20 rounded-2xl p-6 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
+              <div className="relative bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 overflow-hidden shadow-sm hover:shadow-md transition-all">
                 <div className="flex items-center justify-between mb-4">
-                  <Footprints className="w-10 h-10 text-green-400" />
+                  <Footprints className="w-10 h-10 text-green-500" />
                   <motion.div
                     animate={{ x: [0, 10, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    <TrendingUp className="w-6 h-6 text-green-400" />
+                    <TrendingUp className="w-6 h-6 text-green-500" />
                   </motion.div>
                 </div>
-                <h3 className="text-[#fdf0d5] text-sm font-medium mb-2">Steps</h3>
-                <p className="text-4xl font-bold text-green-400 mb-1">
+                <h3 className="text-gray-700 text-sm font-medium mb-2">Steps</h3>
+                <p className="text-4xl font-bold text-green-500 mb-1">
                   {(latestReading?.steps || 0).toLocaleString()}
                 </p>
-                <p className="text-xs text-[#669bbc]">steps today</p>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/10 to-transparent rounded-full blur-2xl" />
+                <p className="text-xs text-gray-600">steps today</p>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/5 to-transparent rounded-full blur-2xl" />
               </div>
             </motion.div>
           </div>
@@ -397,10 +397,10 @@ export default function MentalHealthDashboard() {
               transition={{ delay: 0.5 }}
               className="lg:col-span-2 relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#669bbc]/10 to-[#003049]/10 rounded-2xl blur-xl" />
-              <div className="relative bg-gradient-to-br from-[#003049]/90 to-[#002035]/90 backdrop-blur-sm border border-[#669bbc]/20 rounded-2xl p-6">
-                <h3 className="text-[#fdf0d5] text-xl font-bold mb-6 flex items-center gap-2">
-                  <TrendingUp className="w-6 h-6 text-[#669bbc]" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-2xl blur-xl" />
+              <div className="relative bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <h3 className="text-gray-900 text-xl font-bold mb-6 flex items-center gap-2">
+                  <TrendingUp className="w-6 h-6 text-purple-600" />
                   Trends Over Time
                 </h3>
                 <div className="h-80">
@@ -416,10 +416,10 @@ export default function MentalHealthDashboard() {
               transition={{ delay: 0.6 }}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#669bbc]/10 to-[#003049]/10 rounded-2xl blur-xl" />
-              <div className="relative bg-gradient-to-br from-[#003049]/90 to-[#002035]/90 backdrop-blur-sm border border-[#669bbc]/20 rounded-2xl p-6 h-full flex flex-col">
-                <h3 className="text-[#fdf0d5] text-xl font-bold mb-6 flex items-center gap-2">
-                  <Brain className="w-6 h-6 text-[#669bbc]" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl blur-xl" />
+              <div className="relative bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 h-full flex flex-col shadow-sm hover:shadow-md transition-all">
+                <h3 className="text-gray-900 text-xl font-bold mb-6 flex items-center gap-2">
+                  <Brain className="w-6 h-6 text-purple-600" />
                   Mental Health Score
                 </h3>
                 
@@ -440,7 +440,7 @@ export default function MentalHealthDashboard() {
                         >
                           {scoreData.averageScore.toFixed(1)}
                         </motion.p>
-                        <p className="text-sm text-[#669bbc]">/ 10</p>
+                        <p className="text-sm text-gray-600">/ 10</p>
                       </div>
                       <motion.div
                         animate={{ rotate: 360 }}
@@ -476,10 +476,10 @@ export default function MentalHealthDashboard() {
             transition={{ delay: 0.7 }}
             className="relative group"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#669bbc]/10 to-[#003049]/10 rounded-2xl blur-xl" />
-            <div className="relative bg-gradient-to-br from-[#003049]/90 to-[#002035]/90 backdrop-blur-sm border border-[#669bbc]/20 rounded-2xl p-6">
-              <h3 className="text-[#fdf0d5] text-xl font-bold mb-6 flex items-center gap-2">
-                <Sparkles className="w-6 h-6 text-[#669bbc]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl blur-xl" />
+            <div className="relative bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+              <h3 className="text-gray-900 text-xl font-bold mb-6 flex items-center gap-2">
+                <Sparkles className="w-6 h-6 text-purple-600" />
                 Personalized Recommendations
               </h3>
               
@@ -492,9 +492,9 @@ export default function MentalHealthDashboard() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.8 + index * 0.1 }}
                       whileHover={{ scale: 1.05, y: -5 }}
-                      className="bg-gradient-to-br from-[#669bbc]/10 to-transparent border border-[#669bbc]/30 rounded-xl p-4 hover:border-[#669bbc]/50 transition-all duration-300"
+                      className="bg-gradient-to-br from-purple-50 to-transparent border border-purple-200 rounded-xl p-4 hover:border-purple-300 transition-all duration-300"
                     >
-                      <p className="text-[#fdf0d5] text-sm leading-relaxed">{rec}</p>
+                      <p className="text-gray-700 text-sm leading-relaxed">{rec}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -509,13 +509,13 @@ export default function MentalHealthDashboard() {
             transition={{ delay: 1 }}
             className="text-center mt-6"
           >
-            <p className="text-[#669bbc] text-sm">
+            <p className="text-gray-700 text-sm">
               Last updated: {latestReading ? new Date(latestReading.timestamp).toLocaleString() : 'N/A'}
             </p>
             <motion.div
               animate={{ opacity: [1, 0.5, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="inline-flex items-center gap-2 mt-2 text-xs text-[#669bbc]/70"
+              className="inline-flex items-center gap-2 mt-2 text-xs text-gray-600"
             >
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               Live data updating every 10 seconds
