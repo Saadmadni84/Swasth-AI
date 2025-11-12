@@ -40,10 +40,22 @@ def _model_path(filename: str) -> str:
             return str(p)
     raise FileNotFoundError(f"Model file not found for {filename} in {base_paths + alt_paths}")
 
-# Load ML models
-diabetes_model = joblib.load(_model_path("diabetes_model.pkl"))
-heart_model = joblib.load(_model_path("heart_disease_model.pkl"))
-parkinsons_model = joblib.load(_model_path("parkinsons_model.pkl"))
+# Load ML models with error handling
+diabetes_model = None
+heart_model = None
+parkinsons_model = None
+
+try:
+    logger.info("Loading ML models...")
+    diabetes_model = joblib.load(_model_path("diabetes_model.pkl"))
+    logger.info("✓ Diabetes model loaded successfully")
+    heart_model = joblib.load(_model_path("heart_disease_model.pkl"))
+    logger.info("✓ Heart disease model loaded successfully")
+    parkinsons_model = joblib.load(_model_path("parkinsons_model.pkl"))
+    logger.info("✓ Parkinsons model loaded successfully")
+except Exception as e:
+    logger.warning(f"⚠️  Warning: Could not load ML models: {e}")
+    logger.warning("ML prediction endpoints will return error messages")
 
 # -------------------------
 # Medical Text Analysis Functions
@@ -187,6 +199,9 @@ def home():
 @app.route("/predict/diabetes", methods=["POST"])
 def predict_diabetes():
     try:
+        if diabetes_model is None:
+            return jsonify({"error": "Diabetes model not loaded. Please check server logs."}), 503
+        
         data = request.get_json()
 
         # Expected features
@@ -216,6 +231,9 @@ def predict_diabetes():
 @app.route("/predict/heart", methods=["POST"])
 def predict_heart():
     try:
+        if heart_model is None:
+            return jsonify({"error": "Heart disease model not loaded. Please check server logs."}), 503
+        
         data = request.get_json()
 
         # List all 13 features expected by your heart disease model
@@ -243,6 +261,9 @@ def predict_heart():
 @app.route("/predict/parkinsons", methods=["POST"])
 def predict_parkinsons():
     try:
+        if parkinsons_model is None:
+            return jsonify({"error": "Parkinsons model not loaded. Please check server logs."}), 503
+        
         data = request.get_json()
 
         # Features expected by the Parkinsons model (voice-based features)

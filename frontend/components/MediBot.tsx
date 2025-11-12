@@ -241,7 +241,7 @@ export default function MediBot() {
 
     try {
       // Call Flask backend which integrates with n8n workflow
-      const backendUrl = process.env.NEXT_PUBLIC_ML_API_URL || 'http://localhost:5003';
+      const backendUrl = process.env.NEXT_PUBLIC_ML_API_URL || 'http://localhost:5001';
       
       const response = await fetch(`${backendUrl}/analyze/text`, {
         method: 'POST',

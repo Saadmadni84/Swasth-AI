@@ -59,7 +59,8 @@ export default function MentalHealthDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_BASE = 'http://localhost:5001/api/smartwatch';
+  // API endpoint (Node backend for smartwatch on port 5002)
+  const API_BASE = 'http://localhost:5002/api/smartwatch';
 
   // Fetch all data
   const fetchData = async () => {

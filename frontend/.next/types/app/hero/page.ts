@@ -1,4 +1,4 @@
-// File: /Users/saadmadni/Downloads/2nd  year/project/SwasthAI 2/SwasThAI/frontend/app/hero/page.tsx
+// File: /Users/saadmadni/Downloads/3rd year/project/SwasthAI 2/SwasThAI/frontend/app/hero/page.tsx
 import * as entry from '../../../../app/hero/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

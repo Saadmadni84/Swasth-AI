@@ -2,342 +2,43 @@
 > swasthai@0.1.0 dev
 > next dev
 
-   ▲ Next.js 15.5.3
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/saadmadni/Downloads/3rd year/project/SwasthAI 2/package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles: 
+   * /Users/saadmadni/Downloads/3rd year/project/SwasthAI 2/SwasThAI/frontend/pnpm-lock.yaml
+   * /Users/saadmadni/Downloads/3rd year/project/SwasthAI 2/SwasThAI/package-lock.json
+
+   ▲ Next.js 15.5.6
    - Local:        http://localhost:3000
-   - Network:      http://172.16.2.38:3000
-   - Environments: .env.local, .env
+   - Network:      http://10.230.255.135:3000
+   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 3.5s
- ○ Compiling / ...
- ✓ Compiled / in 4.4s (1567 modules)
- GET / 200 in 5258ms
- GET / 200 in 432ms
- ○ Compiling /hero ...
- ✓ Compiled /hero in 3.5s (1619 modules)
- GET /hero 200 in 4159ms
- ○ Compiling /api/gemini ...
- ✓ Compiled /api/gemini in 1424ms (1641 modules)
- GET /api/gemini 200 in 2360ms
- GET /api/gemini 200 in 139ms
- POST /api/gemini 200 in 7862ms
+ ✓ Ready in 1904ms
  ○ Compiling /health-check ...
- ✓ Compiled /health-check in 16.4s (2453 modules)
- ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 13.9s (2492 modules)
- GET /health-check 200 in 35670ms
- GET /dashboard 200 in 20620ms
- ✓ Compiled in 9.3s (2492 modules)
- GET /health-check 200 in 6393ms
- ✓ Compiled in 4.7s (2486 modules)
- GET /health-check 200 in 7139ms
- GET /dashboard 200 in 1575ms
- ✓ Compiled in 4s (2486 modules)
- GET /dashboard 200 in 1578ms
- GET /dashboard 200 in 51ms
- GET /health-check 200 in 2453ms
- GET /dashboard 200 in 303ms
- ✓ Compiled in 677ms (2486 modules)
- GET /health-check 200 in 941ms
- GET /health-check 200 in 248ms
- GET /health-check 200 in 241ms
- GET /health-check 200 in 238ms
- GET /dashboard 200 in 418ms
- GET /health-check 200 in 261ms
- GET /health-check 200 in 299ms
- ○ Compiling /api/predict/diabetes ...
- ✓ Compiled /api/predict/diabetes in 1716ms (2484 modules)
-Attempting to connect to ML backend at: http://127.0.0.1:5000/predict/diabetes
-Diabetes prediction successful: {"prediction":"Diabetic"}
- POST /api/predict/diabetes 200 in 2229ms
- ✓ Compiled in 1088ms (1394 modules)
- ✓ Compiled in 1076ms (1394 modules)
- GET /dashboard 200 in 2994ms
- ✓ Compiled in 549ms (1394 modules)
- ✓ Compiled in 616ms (1394 modules)
- ✓ Compiled in 1219ms (1394 modules)
- ✓ Compiled in 360ms (1394 modules)
- GET /dashboard 200 in 278ms
- GET /health-check 200 in 566ms
- GET /health-check 200 in 321ms
- ✓ Compiled in 821ms (1394 modules)
- ✓ Compiled in 288ms (1394 modules)
- ✓ Compiled in 568ms (1394 modules)
- ✓ Compiled in 308ms (1394 modules)
- ✓ Compiled in 3.8s (2478 modules)
- ✓ Compiled in 313ms (1401 modules)
- ✓ Compiled in 713ms (2478 modules)
- ✓ Compiled in 977ms (1401 modules)
- ✓ Compiled in 347ms (1401 modules)
- ✓ Compiled in 406ms (1401 modules)
- ✓ Compiled in 253ms (1401 modules)
- ✓ Compiled in 248ms (1401 modules)
- ✓ Compiled in 2.1s (1401 modules)
- ✓ Compiled in 288ms (1401 modules)
- GET /dashboard 200 in 6173ms
- ✓ Compiled in 8.7s (1401 modules)
- ✓ Compiled in 494ms (1401 modules)
- GET /health-check 200 in 520ms
- GET /health-check 200 in 301ms
- ✓ Compiled in 2.9s (1401 modules)
- ✓ Compiled in 625ms (1401 modules)
- ✓ Compiled in 665ms (1401 modules)
- ✓ Compiled in 1243ms (1401 modules)
- ✓ Compiled in 639ms (1401 modules)
- ○ Compiling /api/predict/heart ...
- ✓ Compiled /api/predict/heart in 1513ms (2497 modules)
-Attempting to connect to ML backend at: http://127.0.0.1:5000/predict/heart
-ML prediction successful: {"prediction":"Heart Disease"}
- POST /api/predict/heart 200 in 1975ms
- ✓ Compiled in 1426ms (1401 modules)
- ✓ Compiled in 844ms (1401 modules)
- ✓ Compiled in 1905ms (1401 modules)
- ✓ Compiled in 654ms (1401 modules)
- ✓ Compiled in 3.5s (1401 modules)
- ✓ Compiled in 733ms (1401 modules)
-Attempting to connect to ML backend at: http://127.0.0.1:5000/predict/heart
-ML prediction successful: {"prediction":"Heart Disease"}
- POST /api/predict/heart 200 in 140ms
-Attempting to connect to ML backend at: http://127.0.0.1:5000/predict/heart
-ML prediction successful: {"prediction":"Heart Disease"}
- POST /api/predict/heart 200 in 70ms
- ✓ Compiled in 1737ms (1401 modules)
- ✓ Compiled in 771ms (1401 modules)
-Attempting to connect to ML backend at: http://127.0.0.1:5000/predict/heart
-ML prediction successful: {"prediction":"No Heart Disease"}
- POST /api/predict/heart 200 in 70ms
- ✓ Compiled in 1619ms (1401 modules)
- ✓ Compiled in 500ms (1401 modules)
- GET /dashboard 200 in 1302ms
- GET /health-check 200 in 725ms
- GET /health-check 200 in 933ms
- GET /dashboard 200 in 299ms
- GET /health-check 200 in 403ms
- ○ Compiling /find-doctor ...
- ✓ Compiled /find-doctor in 10.1s (2500 modules)
- GET /find-doctor 200 in 14480ms
- ✓ Compiled in 4.5s (1409 modules)
- ✓ Compiled in 812ms (1409 modules)
- ✓ Compiled in 454ms (1409 modules)
- GET /dashboard 200 in 130ms
- ✓ Compiled in 862ms (1409 modules)
+ ✓ Compiled /health-check in 2.3s (1647 modules)
+Supabase configuration missing. Some features may not work.
+Supabase configuration missing. Some features may not work.
+ GET /health-check 200 in 2770ms
+ ✓ Compiled in 182ms (757 modules)
  ○ Compiling /test-ai ...
- ✓ Compiled /test-ai in 6.4s (2537 modules)
- GET /test-ai 200 in 7432ms
- ✓ Compiled in 1252ms (1427 modules)
- ✓ Compiled in 1596ms (1427 modules)
- ✓ Compiled in 1337ms (1427 modules)
- ✓ Compiled in 417ms (1427 modules)
- ✓ Compiled in 2.9s (1427 modules)
- ✓ Compiled in 404ms (1427 modules)
- GET /test-ai 200 in 191ms
- ○ Compiling /3d-lab ...
- ✓ Compiled /3d-lab in 16.4s (3666 modules)
- GET /dashboard 200 in 2423ms
- GET /3d-lab 200 in 17430ms
- GET /3d-lab 200 in 171ms
- GET /3d-lab 200 in 92ms
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 2.9s (3671 modules)
- GET /models/your-model.glb 404 in 3276ms
- GET /dashboard 200 in 370ms
- ✓ Compiled in 1107ms (1990 modules)
- ✓ Compiled in 382ms (1986 modules)
- ✓ Compiled in 2.1s (1986 modules)
- ✓ Compiled in 338ms (1986 modules)
- ✓ Compiled in 811ms (1986 modules)
- ✓ Compiled in 327ms (1986 modules)
- GET /dashboard 200 in 139ms
- ✓ Compiled in 1695ms (1986 modules)
- ✓ Compiled in 504ms (1986 modules)
- ✓ Compiled in 1257ms (1986 modules)
- ✓ Compiled in 317ms (1986 modules)
- ✓ Compiled in 802ms (1986 modules)
- ✓ Compiled in 398ms (1986 modules)
- ✓ Compiled in 1291ms (1986 modules)
- ✓ Compiled in 976ms (1986 modules)
- ✓ Compiled in 1506ms (1986 modules)
- ✓ Compiled in 337ms (1986 modules)
- ✓ Compiled in 1517ms (1986 modules)
- ✓ Compiled in 595ms (1986 modules)
- GET /dashboard 200 in 126ms
- ✓ Compiled in 3.1s (1986 modules)
- ✓ Compiled in 622ms (1986 modules)
- ✓ Compiled in 678ms (1986 modules)
- ✓ Compiled in 1433ms (1986 modules)
- ✓ Compiled in 943ms (1986 modules)
- GET /dashboard 200 in 346ms
- ✓ Compiled in 1308ms (1986 modules)
- ✓ Compiled in 388ms (1986 modules)
- ✓ Compiled in 1359ms (1986 modules)
- ✓ Compiled in 614ms (1986 modules)
- ✓ Compiled in 342ms (1986 modules)
- ✓ Compiled in 1287ms (1986 modules)
- ✓ Compiled in 450ms (1986 modules)
- GET /dashboard 200 in 266ms
- ✓ Compiled in 1469ms (1986 modules)
- ✓ Compiled in 317ms (1986 modules)
- ✓ Compiled in 1045ms (1986 modules)
- ✓ Compiled in 420ms (1986 modules)
- ✓ Compiled in 1494ms (1986 modules)
- ✓ Compiled in 323ms (1986 modules)
- ✓ Compiled in 1007ms (1986 modules)
- ✓ Compiled in 388ms (1986 modules)
- ✓ Compiled in 873ms (1986 modules)
- ✓ Compiled in 373ms (1986 modules)
- ✓ Compiled in 1144ms (1986 modules)
- ✓ Compiled in 327ms (1986 modules)
- ✓ Compiled in 2.8s (1986 modules)
- ✓ Compiled in 488ms (1986 modules)
- ✓ Compiled in 1054ms (1986 modules)
- ✓ Compiled in 327ms (1986 modules)
- ✓ Compiled in 1194ms (1986 modules)
- ✓ Compiled in 361ms (1986 modules)
- ✓ Compiled in 981ms (1986 modules)
- ✓ Compiled in 332ms (1986 modules)
- ✓ Compiled in 988ms (1986 modules)
- ✓ Compiled in 317ms (1986 modules)
- ✓ Compiled in 991ms (1986 modules)
- ✓ Compiled in 337ms (1986 modules)
- ✓ Compiled in 1042ms (1986 modules)
- ✓ Compiled in 313ms (1986 modules)
- ✓ Compiled in 1488ms (1986 modules)
- ✓ Compiled in 357ms (1986 modules)
- ✓ Compiled in 3.7s (1986 modules)
- ✓ Compiled in 846ms (1986 modules)
- ✓ Compiled in 692ms (1986 modules)
- ✓ Compiled in 2s (1986 modules)
- ✓ Compiled in 1060ms (1986 modules)
- ✓ Compiled in 1444ms (1986 modules)
- ✓ Compiled in 356ms (1986 modules)
- ✓ Compiled in 1274ms (1986 modules)
- ✓ Compiled in 343ms (1986 modules)
- ✓ Compiled in 1401ms (1986 modules)
- ✓ Compiled in 417ms (1986 modules)
- ✓ Compiled in 1185ms (1986 modules)
- ✓ Compiled in 388ms (1986 modules)
- ✓ Compiled in 3s (1986 modules)
- ✓ Compiled in 486ms (1986 modules)
- ✓ Compiled in 1036ms (1986 modules)
- ✓ Compiled in 356ms (1986 modules)
- ✓ Compiled in 1063ms (1986 modules)
- ✓ Compiled in 331ms (1986 modules)
- ✓ Compiled in 848ms (1986 modules)
- ✓ Compiled in 317ms (1986 modules)
- ✓ Compiled in 1927ms (1986 modules)
- ✓ Compiled in 375ms (1986 modules)
- ✓ Compiled in 960ms (1986 modules)
- ✓ Compiled in 328ms (1986 modules)
- ✓ Compiled in 1117ms (1986 modules)
- ✓ Compiled in 359ms (1986 modules)
- ✓ Compiled in 1028ms (1986 modules)
- ✓ Compiled in 370ms (1986 modules)
- ✓ Compiled in 995ms (1986 modules)
- ✓ Compiled in 308ms (1986 modules)
- ✓ Compiled in 932ms (1986 modules)
- ✓ Compiled in 339ms (1986 modules)
- ✓ Compiled in 2.7s (1986 modules)
- ✓ Compiled in 809ms (1986 modules)
- ✓ Compiled in 1269ms (1986 modules)
- ✓ Compiled in 348ms (1986 modules)
- ✓ Compiled in 2.1s (1986 modules)
- ✓ Compiled in 2.6s (1986 modules)
- ✓ Compiled in 1647ms (1986 modules)
- ✓ Compiled in 1055ms (1986 modules)
- ✓ Compiled in 1477ms (1986 modules)
- ✓ Compiled in 386ms (1986 modules)
- ✓ Compiled in 987ms (1986 modules)
- ✓ Compiled in 318ms (1986 modules)
- ✓ Compiled in 1179ms (1986 modules)
- ✓ Compiled in 434ms (1986 modules)
- ✓ Compiled in 1451ms (1986 modules)
- ✓ Compiled in 333ms (1986 modules)
- ✓ Compiled in 871ms (1986 modules)
- ✓ Compiled in 375ms (1986 modules)
- ✓ Compiled in 1743ms (1986 modules)
- ✓ Compiled in 495ms (1986 modules)
- ✓ Compiled in 1845ms (1986 modules)
- ✓ Compiled in 1102ms (1986 modules)
- ✓ Compiled in 888ms (1986 modules)
- ✓ Compiled in 2.3s (1986 modules)
- ✓ Compiled in 635ms (1986 modules)
- ✓ Compiled in 2s (1986 modules)
- ✓ Compiled in 695ms (1986 modules)
- ✓ Compiled in 1847ms (1986 modules)
- ✓ Compiled in 444ms (1986 modules)
- ✓ Compiled in 1857ms (1986 modules)
- ✓ Compiled in 663ms (1986 modules)
- ✓ Compiled in 1700ms (1986 modules)
- ✓ Compiled in 467ms (1986 modules)
- ✓ Compiled in 1353ms (1986 modules)
- ✓ Compiled in 471ms (1986 modules)
- ✓ Compiled in 1463ms (1986 modules)
- ✓ Compiled in 444ms (1986 modules)
- ✓ Compiled in 1659ms (1986 modules)
- ✓ Compiled in 463ms (1986 modules)
- ✓ Compiled in 441ms (1986 modules)
- ✓ Compiled in 1369ms (1986 modules)
- ✓ Compiled in 441ms (1986 modules)
- ✓ Compiled in 1578ms (1986 modules)
- ✓ Compiled in 536ms (1986 modules)
- ✓ Compiled in 1282ms (1986 modules)
- ✓ Compiled in 424ms (1986 modules)
- ✓ Compiled in 2s (1986 modules)
- ✓ Compiled in 689ms (1986 modules)
- ✓ Compiled in 951ms (1986 modules)
- ✓ Compiled in 324ms (1986 modules)
- ✓ Compiled in 1352ms (1986 modules)
- ✓ Compiled in 320ms (1986 modules)
- ✓ Compiled in 2.8s (1986 modules)
- ✓ Compiled in 401ms (1986 modules)
- ✓ Compiled in 1024ms (1986 modules)
- ✓ Compiled in 365ms (1986 modules)
- ✓ Compiled in 1213ms (1986 modules)
- ✓ Compiled in 347ms (1986 modules)
- ✓ Compiled in 1123ms (1986 modules)
- ✓ Compiled in 362ms (1986 modules)
- ✓ Compiled in 1312ms (1986 modules)
- ✓ Compiled in 329ms (1986 modules)
- ✓ Compiled in 1099ms (1986 modules)
- ✓ Compiled in 487ms (1986 modules)
- ✓ Compiled in 1353ms (1986 modules)
- ✓ Compiled in 332ms (1986 modules)
- ✓ Compiled in 1352ms (1986 modules)
- ✓ Compiled in 362ms (1986 modules)
- ✓ Compiled in 1296ms (1986 modules)
- ✓ Compiled in 303ms (1986 modules)
- ✓ Compiled in 1093ms (1986 modules)
- ✓ Compiled in 384ms (1986 modules)
- ✓ Compiled in 1186ms (1986 modules)
- ✓ Compiled in 339ms (1986 modules)
- ✓ Compiled in 954ms (1986 modules)
- ✓ Compiled in 299ms (1986 modules)
- ✓ Compiled in 842ms (1986 modules)
- ✓ Compiled in 377ms (1986 modules)
- ✓ Compiled in 1118ms (1986 modules)
- ✓ Compiled in 355ms (1986 modules)
- ✓ Compiled in 1261ms (1986 modules)
- ✓ Compiled in 359ms (1986 modules)
- ✓ Compiled in 1151ms (1986 modules)
- ✓ Compiled in 359ms (1986 modules)
- ✓ Compiled in 1179ms (1986 modules)
- ✓ Compiled in 338ms (1986 modules)
- ✓ Compiled in 1406ms (1986 modules)
- ✓ Compiled in 532ms (1986 modules)
- ✓ Compiled in 947ms (1986 modules)
- ✓ Compiled in 317ms (1986 modules)
- ✓ Compiled in 943ms (1986 modules)
- ✓ Compiled in 301ms (1986 modules)
- ✓ Compiled in 1115ms (1986 modules)
- ✓ Compiled in 344ms (1986 modules)
- ✓ Compiled in 882ms (1986 modules)
- ✓ Compiled in 300ms (1986 modules)
- ✓ Compiled in 1142ms (1986 modules)
- ✓ Compiled in 306ms (1986 modules)
- ✓ Compiled in 1110ms (1986 modules)
- ✓ Compiled in 1186ms (1986 modules)
- ✓ Compiled in 10803s (1986 modules)
- ✓ Compiled in 1464ms (1986 modules)
- ✓ Compiled in 13.5s (1986 modules)
- ✓ Compiled in 1774ms (1986 modules)
- ✓ Compiled in 660ms (1986 modules)
+ ✓ Compiled /test-ai in 1197ms (2782 modules)
+Supabase configuration missing. Some features may not work.
+Supabase configuration missing. Some features may not work.
+ GET /test-ai 200 in 1586ms
+ GET /health-check 200 in 216ms
+ ○ Compiling /mental-health ...
+ ✓ Compiled /hero in 4.9s (3044 modules)
+ GET /mental-health 200 in 7142ms
+ GET /hero 200 in 4930ms
+ GET /mental-health 200 in 456ms
+ GET /hero 200 in 555ms
+ GET /mental-health 200 in 317ms
+ GET /hero 200 in 223ms
+ GET /hero 200 in 154ms
+ GET /hero 200 in 91ms
+ GET /hero 200 in 64ms
+ GET /mental-health 200 in 294ms
+ GET /test-ai 200 in 133ms
