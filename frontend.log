@@ -42,3 +42,6 @@ Supabase configuration missing. Some features may not work.
  GET /hero 200 in 64ms
  GET /mental-health 200 in 294ms
  GET /test-ai 200 in 133ms
+ ✓ Compiled in 1274ms (3058 modules)
+ GET /test-ai 200 in 93ms
+ GET /health-check 200 in 43ms
