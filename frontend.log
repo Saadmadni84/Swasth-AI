@@ -1,4 +1,8 @@
 
+> dev
+> npm --prefix frontend run dev
+
+
 > swasthai@0.1.0 dev
 > next dev
 
@@ -16,32 +20,4 @@
    - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1904ms
- ○ Compiling /health-check ...
- ✓ Compiled /health-check in 2.3s (1647 modules)
-Supabase configuration missing. Some features may not work.
-Supabase configuration missing. Some features may not work.
- GET /health-check 200 in 2770ms
- ✓ Compiled in 182ms (757 modules)
- ○ Compiling /test-ai ...
- ✓ Compiled /test-ai in 1197ms (2782 modules)
-Supabase configuration missing. Some features may not work.
-Supabase configuration missing. Some features may not work.
- GET /test-ai 200 in 1586ms
- GET /health-check 200 in 216ms
- ○ Compiling /mental-health ...
- ✓ Compiled /hero in 4.9s (3044 modules)
- GET /mental-health 200 in 7142ms
- GET /hero 200 in 4930ms
- GET /mental-health 200 in 456ms
- GET /hero 200 in 555ms
- GET /mental-health 200 in 317ms
- GET /hero 200 in 223ms
- GET /hero 200 in 154ms
- GET /hero 200 in 91ms
- GET /hero 200 in 64ms
- GET /mental-health 200 in 294ms
- GET /test-ai 200 in 133ms
- ✓ Compiled in 1274ms (3058 modules)
- GET /test-ai 200 in 93ms
- GET /health-check 200 in 43ms
+ ✓ Ready in 1929ms
