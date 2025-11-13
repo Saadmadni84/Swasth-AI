@@ -5,7 +5,7 @@ import { Quote, Star } from "lucide-react"
 
 const testimonials = [
   {
-    name: "Dr. Sarah Mitchell",
+    name: "Dr.Naresh singh",
     role: "Chief Surgeon, Metro General Hospital",
     content: "SwasthAI has revolutionized how we explain complex procedures to patients. The 3D visualizations have improved patient understanding by 300%.",
     avatar: "SM",
@@ -13,7 +13,7 @@ const testimonials = [
     color: "from-blue-500 to-cyan-500"
   },
   {
-    name: "Dr. Michael Chen",
+    name: "Dr. Sandeep Vaishya",
     role: "Head of Radiology, City Medical Center",
     content: "The AI-powered diagnostic tools have significantly improved our accuracy rates. This platform is a game-changer for modern healthcare.",
     avatar: "MC",

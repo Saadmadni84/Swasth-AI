@@ -21,15 +21,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Try to connect to the ML backend
-    // Using port 5001 to avoid conflict with macOS AirPlay on port 5000
+    // Using port 5001 for Flask ML backend
     const mlBackendUrl = process.env.ML_API_URL || 'http://127.0.0.1:5001';
     const mlBackendUrls = [
       `${mlBackendUrl}/predict/heart`,
       'http://127.0.0.1:5001/predict/heart',
       'http://localhost:5001/predict/heart'
-    ];
-
-    let lastError = '';
+    ];    let lastError = '';
     
     for (const url of mlBackendUrls) {
       try {

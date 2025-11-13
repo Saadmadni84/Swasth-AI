@@ -1,4 +1,28 @@
 {
+  "app/3d-lab/page.tsx -> @/components/DiabetesWithAnatomy": {
+    "id": "app/3d-lab/page.tsx -> @/components/DiabetesWithAnatomy",
+    "files": [
+      "static/chunks/_app-pages-browser_components_DiabetesWithAnatomy_jsx.js"
+    ]
+  },
+  "app/3d-lab/page.tsx -> @/components/HeartDiseaseWithVisualization": {
+    "id": "app/3d-lab/page.tsx -> @/components/HeartDiseaseWithVisualization",
+    "files": [
+      "static/chunks/_app-pages-browser_components_HeartDiseaseWithVisualization_tsx.js"
+    ]
+  },
+  "app/3d-lab/page.tsx -> @/components/three/BloodVesselSimulation": {
+    "id": "app/3d-lab/page.tsx -> @/components/three/BloodVesselSimulation",
+    "files": [
+      "static/chunks/_app-pages-browser_components_three_BloodVesselSimulation_tsx.js"
+    ]
+  },
+  "app/3d-lab/page.tsx -> @/components/three/ThreeScene": {
+    "id": "app/3d-lab/page.tsx -> @/components/three/ThreeScene",
+    "files": [
+      "static/chunks/_app-pages-browser_components_three_ThreeScene_tsx.js"
+    ]
+  },
   "components/HeartDiseaseWithVisualization.tsx -> ./three/BloodVesselSimulation": {
     "id": "components/HeartDiseaseWithVisualization.tsx -> ./three/BloodVesselSimulation",
     "files": [

@@ -31,12 +31,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Try to connect to the ML backend
-    // Using port 5003 (port 5001 is used by Node backend)
-    const mlBackendUrl = process.env.ML_API_URL || 'http://127.0.0.1:5003';
+    // Using port 5001 for Flask ML backend
+    const mlBackendUrl = process.env.ML_API_URL || 'http://127.0.0.1:5001';
     const mlBackendUrls = [
       `${mlBackendUrl}/predict/diabetes`,
-      'http://127.0.0.1:5003/predict/diabetes',
-      'http://localhost:5003/predict/diabetes'
+      'http://127.0.0.1:5001/predict/diabetes',
+      'http://localhost:5001/predict/diabetes'
     ];
 
     let lastError = '';
