@@ -244,4 +244,3 @@ For any questions or issues, please open an issue on GitHub: [@Saadmadni84](http
 <p align="center">
   Made with ❤️ and lots of ☕
 </p>
-# SwasthAI
