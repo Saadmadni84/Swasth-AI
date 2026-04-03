@@ -1,3 +1,6 @@
+## 🚀 Live Demo
+👉 https://swasth-ai-jc2f.vercel.app/hero
+
 # 🌿 GramSwasth: Revolutionizing Rural Healthcare
 
 > Note: The repository is now organized as a monorepo with separate frontend (Next.js) and backend (Python/Flask ML) services.
